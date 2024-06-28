@@ -32,7 +32,7 @@ function Friends() {
           <div key={friend.id} className="friend-row">
             <div className="friend-avatar">{friend.name.charAt(0)}</div>
             <div className="friend-name">{friend.name}</div>
-            <div className="friend-streak">{friend.streak} days</div>
+            <div className="friend-streak">🔥{friend.streak} days</div>
             <button className="reminder-button" onClick={() => sendReminder(friend.name)}>Send Reminder</button>
           </div>
         ))}

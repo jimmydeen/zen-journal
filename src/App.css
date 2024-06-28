@@ -106,6 +106,7 @@ button:hover {
 
 .friend-streak {
   margin-right: 20px;
+  min-width: 10ch;
 }
 
 .reminder-button {
