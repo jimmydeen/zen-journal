@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [entry, setEntry] = useState('');
+  const prompt = "What are you grateful for today?";
+
+  const handleSave = () => {
+    if (entry.trim()) {
+      console.log('Prompt:', prompt);
+      console.log('Entry:', entry);
+      alert('Your journal entry has been saved!');
+      setEntry('');
+      document.getElementById('journal-entry').innerText = '';
+    } else {
+      alert('Please write something before saving.');
+    }
+  };
+
+  const handleInput = (e) => {
+    setEntry(e.target.innerText);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="prompt">
+        <p>{prompt}</p>
+      </div>
+      <div
+        id="journal-entry"
+        className="entry"
+        contentEditable="true"
+        onInput={handleInput}
+        placeholder="Write your thoughts here..."
+      ></div>
+      <button onClick={handleSave}>Save Entry</button>
     </div>
   );
 }
 
 export default App;
+
