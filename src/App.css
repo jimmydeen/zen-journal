@@ -26,6 +26,7 @@ body {
 }
 
 .tab:hover {
+  transition: background-color 0.3s ease-in-out;
   background-color: #1ABC9C;
   border-radius: 5px;
 }
@@ -71,6 +72,7 @@ button {
 }
 
 button:hover {
+  transition: background-color 0.3s ease-in-out;
   background-color: #16A085;
 }
 
@@ -119,5 +121,6 @@ button:hover {
 }
 
 .reminder-button:hover {
+  transition: background-color 0.3s ease-in-out;
   background-color: #16A085;
 }
