@@ -6,6 +6,18 @@ function Friends() {
     { id: 1, name: 'Alice', streak: 5 },
     { id: 2, name: 'Bob', streak: 10 },
     { id: 3, name: 'Charlie', streak: 3 },
+    { id: 4, name: 'Daniel', streak: 3 },
+    { id: 5, name: 'Edward', streak: 3 },
+    { id: 6, name: 'Fred', streak: 3 },
+    { id: 7, name: 'Grant', streak: 3 },
+    { id: 8, name: 'Hugh', streak: 3 },
+    { id: 9, name: 'Idris', streak: 3 },
+    { id: 10, name: 'Jack', streak: 3 },
+    { id: 11, name: 'Luna', streak: 3 },
+    { id: 12, name: 'Mina', streak: 3 },
+    { id: 13, name: 'Nina', streak: 3 },
+    { id: 14, name: 'Opal', streak: 3 },
+    { id: 15, name: 'Patty', streak: 3 },
   ];
 
   const sendReminder = (name) => {
