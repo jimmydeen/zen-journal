@@ -1,42 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
+import Journal from './Journal';
+import Friends from './Friends';
+import Profile from './Profile';
 
 function App() {
-  const [entry, setEntry] = useState('');
-  const prompt = "What are you grateful for today?";
-
-  const handleSave = () => {
-    if (entry.trim()) {
-      console.log('Prompt:', prompt);
-      console.log('Entry:', entry);
-      alert('Your journal entry has been saved!');
-      setEntry('');
-      document.getElementById('journal-entry').innerText = '';
-    } else {
-      alert('Please write something before saving.');
-    }
-  };
-
-  const handleInput = (e) => {
-    setEntry(e.target.innerText);
-  };
-
   return (
-    <div className="container">
-      <div className="prompt">
-        <p>{prompt}</p>
+    <Router>
+      <div className="app">
+        <nav className="tab-bar">
+          <Link to="/" className="tab">Journal</Link>
+          <Link to="/friends" className="tab">Friends</Link>
+          <Link to="/profile" className="tab">Profile</Link>
+        </nav>
+        <Routes>
+          <Route exact path="/" element={<Journal />} />
+          <Route path="/friends" element={<Friends />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
       </div>
-      <div
-        id="journal-entry"
-        className="entry"
-        contentEditable="true"
-        onInput={handleInput}
-        placeholder="Write your thoughts here..."
-      ></div>
-      <button onClick={handleSave}>Save Entry</button>
-    </div>
+    </Router>
   );
 }
 
 export default App;
-
