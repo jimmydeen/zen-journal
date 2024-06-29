@@ -3,6 +3,7 @@ import './App.css';
 
 function Journal() {
   const [entry, setEntry] = useState('');
+
   const prompt = "What are you grateful for today?";
 
   const handleSave = () => {

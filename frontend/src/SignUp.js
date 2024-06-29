@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './SignUp.css';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -6,18 +7,16 @@ const SignUp = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Here you can handle the signup logic, e.g., send data to backend or perform client-side validation
     console.log('Email:', email);
     console.log('Password:', password);
-    // Reset form fields after signup
     setEmail('');
     setPassword('');
   };
 
   return (
-    <div>
+    <div className="signup-container">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="signup-form">
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -36,7 +35,7 @@ const SignUp = () => {
           required
         />
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" className="signup-button">Sign Up</button>
       </form>
     </div>
   );

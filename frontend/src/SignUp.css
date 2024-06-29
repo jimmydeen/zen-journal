@@ -1,0 +1,49 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #2C3E50; /* Matches the background color from your previous screen */
+    color: white;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 15px;
+  }
+  
+  .signup-form label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .signup-form input {
+    padding: 10px;
+    background-color: #3B3B3B; /* Dark color for input fields */
+    border: none;
+    font-size: 1rem;
+    color: white;
+  }
+  
+  .signup-form input::placeholder {
+    color: #BDC3C7; /* Lighter grey for placeholder text */
+  }
+  
+  .signup-button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1ABC9C; /* Button color */
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-button:hover {
+    background-color: #16A085; /* Darker shade on hover */
+  }
+  
