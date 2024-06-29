@@ -33,6 +33,7 @@ function Friends() {
             <div className="friend-avatar">{friend.name.charAt(0)}</div>
             <div className="friend-name">{friend.name}</div>
             <div className="friend-streak">🔥{friend.streak} days</div>
+            {/* depending on whether the friend has completed their journal for today display either send reminder or congratulate */}
             <button className="reminder-button" onClick={() => sendReminder(friend.name)}>Send Reminder</button>
           </div>
         ))}
