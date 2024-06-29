@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from './supabase'; // Import Supabase client
+import { supabase } from './Supabase.js'; // Import Supabase client
 import './App.css';
 
 function Journal() {
