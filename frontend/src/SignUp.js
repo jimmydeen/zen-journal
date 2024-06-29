@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './SignUp.css';
+import { AuthContext } from './AuthContext';
+import { supabase } from './Supabase';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event) => {
+  const navigate = useNavigate()
+
+  // later on, use ac to determine if there is already a person signed in and if so skip the sign in page
+  const {ac, setAc} = useContext(AuthContext)
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-    setEmail('');
-    setPassword('');
+    let {data, error} = await supabase.auth.signUp({
+      email,
+      password
+    })
+    if (error) {
+      alert(error.message)
+    } else {
+      setAc({isLoggedIn: true})
+      navigate('/journal')
+    }
   };
 
   return (
