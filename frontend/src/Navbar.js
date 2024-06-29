@@ -1,7 +1,5 @@
 import React from "react"
 import { Link } from 'react-router-dom'
-import { AuthContext } from "./AuthContext"
-import { useContext } from "react"
 
 function Navbar() {
   return (
