@@ -1,17 +1,19 @@
 import React, { useContext } from "react"
 import { AuthContext } from "./AuthContext"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from "./Supabase"
 
 function Navbar() {
   const {ac, setAc} = useContext(AuthContext)
+  const navigate = useNavigate()
   function logOutHandler() {
     let { error } = supabase.auth.signOut()
     if (!error) {
       setAc({isLoggedIn: false})
+      navigate('')
+    } else {
+      console.log(error)
     }
-    console.log(error)
-    alert('Youre logged out now.')
   }
   return (
       <nav className="tab-bar">
