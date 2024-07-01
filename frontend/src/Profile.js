@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import fire from './fire-1-svgrepo-com-cropped.svg'
+import { supabase } from './Supabase';
 import quill from './7830805_tool_quill_design_icon(2).png'
 import './App.css';
 
@@ -11,10 +12,47 @@ function Profile() {
   const [activeDays, setActiveDays] = useState(123)
   const [membersSince, setMembersSince] = useState('12/03/2023')
   useEffect(() => {
-    fetch("https://dog.ceo/api/breeds/image/random")
-    .then(response => response.json())
-    .then(data => setDogImage(data.message))
-  },[])
+    let ignore = false
+    // race condition
+    async function fetchData() {
+      const dogResponse = await fetch("https://dog.ceo/api/breeds/image/random")
+      const dogData = await dogResponse.json()
+      if (!ignore) {
+        setDogImage(dogData.message)
+      }
+
+      const { data: { user } } = await supabase.auth.getUser()
+      const id = user.id
+      const { data, error } = await supabase.from('users').select(
+        `
+        created_at,
+        days_active,
+        entries_made,
+        words_written,
+        encouragements,
+        daily_entry_made
+        `
+      ).eq('id', id)
+
+      if (error) {
+        alert(error)
+      } else {
+        if (!ignore) {
+          if (data.length === 1) {
+            const ourUser = data[0]
+            setWordsWritten(ourUser.words_written)
+            setEntries(ourUser.entries_made)
+            setWordsOfEncouragement(ourUser.encouragements)
+            setActiveDays(ourUser.days_active)
+            setMembersSince(ourUser.created_at)
+          } else {
+            alert('more than one user')
+          }
+        }
+      }
+    } 
+    fetchData()
+  }, [])
 
   return (
     <div className="container">
