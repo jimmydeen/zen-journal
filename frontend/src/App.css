@@ -54,6 +54,16 @@ body {
   border-radius: 10px;
   text-align: center;
   margin: 20px auto;
+  animation: fade-in 1s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 
