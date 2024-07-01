@@ -38,6 +38,12 @@ body {
   border-radius: 5px;
 }
 
+.logout-button {
+  position: fixed;
+  z-index: 1000;
+  right: 1rem;
+}
+
 .container {
   width: 80%;
   max-width: 600px;
