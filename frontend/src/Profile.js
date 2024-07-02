@@ -17,9 +17,6 @@ function Profile() {
     async function fetchData() {
       const dogResponse = await fetch("https://dog.ceo/api/breeds/image/random")
       const dogData = await dogResponse.json()
-      if (!ignore) {
-        setDogImage(dogData.message)
-      }
 
       const { data: { user } } = await supabase.auth.getUser()
       const id = user.id
@@ -38,6 +35,7 @@ function Profile() {
         alert(error)
       } else {
         if (!ignore) {
+          setDogImage(dogData.message)
           if (data.length === 1) {
             const ourUser = data[0]
             setWordsWritten(ourUser.words_written)
@@ -46,7 +44,7 @@ function Profile() {
             setActiveDays(ourUser.days_active)
             setMembersSince(ourUser.created_at)
           } else {
-            alert('more than one user')
+            console.error("Either 0 or more than 1 user found pertaining to id.")
           }
         }
       }
