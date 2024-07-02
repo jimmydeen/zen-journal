@@ -56,6 +56,9 @@ function Profile() {
         }
       }
     } 
+    return () => {
+      ignore = true
+    }
     fetchData()
   }, [])
 
