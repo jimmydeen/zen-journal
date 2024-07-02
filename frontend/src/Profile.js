@@ -42,7 +42,14 @@ function Profile() {
             setEntries(ourUser.entries_made)
             setWordsOfEncouragement(ourUser.encouragements)
             setActiveDays(ourUser.days_active)
-            setMembersSince(ourUser.created_at)
+            
+            const date = new Date(ourUser.created_at)
+            const options = {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            };
+            setMembersSince(date.toLocaleDateString('en-US', options))
           } else {
             console.error("Either 0 or more than 1 user found pertaining to id.")
           }
