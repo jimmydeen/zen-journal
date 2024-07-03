@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { supabase } from './Supabase.js'; // Import Supabase client
 import './App.css';
 
 function Journal() {
+  const [stage, setStage] = useState(0)
+  const [userState, setUserState] = useState({})
   const [entry, setEntry] = useState('');
   const prompt = "What are you grateful for today?";
 
@@ -50,19 +52,66 @@ function Journal() {
     setEntry(e.target.innerText);
   };
 
+  useEffect(() => {
+    console.log(userState)
+    console.log(stage)
+  }, [userState, stage])
+
+  const handleResponse = useCallback((response, stage) => {
+    return () => {
+      const stageStrings = ['overall', 'energy', 'isStressed']
+      setUserState(prevState => ({...prevState, [stageStrings[stage]]: response}))
+      setStage(prev => prev + 1)
+    }
+  })
+
   return (
     <div className="container">
-      <div className="prompt">
-        <p>{prompt}</p>
-      </div>
-      <div
-        id="journal-entry"
-        className="entry"
-        contentEditable="true"
-        onInput={handleInput}
-        placeholder="Write your thoughts here..."
-      ></div>
-      <button onClick={handleSave}>Save Entry</button>
+      {/* First Question */}
+      {stage === 0 &&
+        <div className='question'>
+          <h1>How are you feeling today?</h1>
+          <div className='answers'>
+            <button onClick={handleResponse('great')}>Great!</button>
+            <button onClick={handleResponse('alright')}>Alright</button>
+            <button onClick={handleResponse('poor')}>Poor</button>
+          </div>
+        </div>
+      }
+      {stage === 1 &&
+        <div className='question'>
+          <h1>How much energy did you have?</h1>
+          <div className='answers'>
+            <button onClick={handleResponse('high')}>High</button>
+            <button onClick={handleResponse('average')}>Average</button>
+            <button onClick={handleResponse('low')}>Low</button>
+          </div>
+        </div>
+      }
+      {stage === 2 &&
+        <div className='question'>
+          <h1>Have you felt stressed at all today?</h1>
+          <div className='answers'>
+            <button onClick={handleResponse('yes')}>Yes</button>
+            <button onClick={handleResponse('no')}>No</button>
+          </div>
+        </div>
+      }
+      {stage === 3 &&
+        <div>
+          <div className="prompt">
+            <p>{prompt}</p>
+          </div>
+          <div
+            id="journal-entry"
+            className="entry"
+            contentEditable="true"
+            onInput={handleInput}
+            placeholder="Write your thoughts here..."
+          ></div>
+          <button onClick={handleSave}>Save Entry</button>
+        </div>
+      }
     </div>
   );
 }
