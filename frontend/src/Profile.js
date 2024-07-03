@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import fire from './fire-1-svgrepo-com-cropped.svg'
+import eclipse from './Eclipse.gif'
 import { supabase } from './Supabase';
 import quill from './7830805_tool_quill_design_icon(2).png'
 import './App.css';
 
 function Profile() {
+  const [isLoading, setIsLoading] = useState(true)
   const [dogImage, setDogImage] = useState()
   const [wordsWritten, setWordsWritten] = useState(4000)
   const [entries, setEntries] = useState(173)
@@ -50,19 +52,27 @@ function Profile() {
               day: 'numeric',
             };
             setMembersSince(date.toLocaleDateString('en-US', options))
+            
+            setIsLoading(false)
           } else {
             console.error("Either 0 or more than 1 user found pertaining to id.")
           }
         }
       }
     } 
+    fetchData()
     return () => {
       ignore = true
+      setIsLoading(true)
     }
-    fetchData()
   }, [])
 
   return (
+    isLoading ? 
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}> 
+      <img src={eclipse} alt="loading icon"/>
+    </div>
+    :
     <div className="container">
       <div className="profile-header">
         <div className="profile-pic"><img src={dogImage} alt="profile-pic"/></div>
