@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { supabase } from './Supabase.js'; // Import Supabase client
 import './App.css';
+import QuestionAndAnswer from './questionAndAnswer.js';
 
 function Journal() {
   const [stage, setStage] = useState(0)
@@ -63,39 +64,19 @@ function Journal() {
       setUserState(prevState => ({...prevState, [stageStrings[stage]]: response}))
       setStage(prev => prev + 1)
     }
-  })
+  }, [])
 
   return (
     <div className="container">
       {/* First Question */}
       {stage === 0 &&
-        <div className='question'>
-          <h1>How are you feeling today?</h1>
-          <div className='answers'>
-            <button onClick={handleResponse('great')}>Great!</button>
-            <button onClick={handleResponse('alright')}>Alright</button>
-            <button onClick={handleResponse('poor')}>Poor</button>
-          </div>
-        </div>
+        <QuestionAndAnswer stage={0} question="How are you feeling today?" answers={['Great', 'Alright', 'Poor']} handleResponse={handleResponse}/>
       }
       {stage === 1 &&
-        <div className='question'>
-          <h1>How much energy did you have?</h1>
-          <div className='answers'>
-            <button onClick={handleResponse('high')}>High</button>
-            <button onClick={handleResponse('average')}>Average</button>
-            <button onClick={handleResponse('low')}>Low</button>
-          </div>
-        </div>
+        <QuestionAndAnswer stage={1} question="How much energy did you have?" answers={['High', 'Average', 'Low']} handleResponse={handleResponse}/>
       }
       {stage === 2 &&
-        <div className='question'>
-          <h1>Have you felt stressed at all today?</h1>
-          <div className='answers'>
-            <button onClick={handleResponse('yes')}>Yes</button>
-            <button onClick={handleResponse('no')}>No</button>
-          </div>
-        </div>
+        <QuestionAndAnswer stage={2} question="Did you feel stressed at all today?" answers={['Yes', 'No']} handleResponse={handleResponse}/>
       }
       {stage === 3 &&
         <div>
