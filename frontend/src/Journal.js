@@ -9,7 +9,7 @@ function Journal() {
   const handleSave = async () => {
     if (entry.trim()) {
       try {
-        const user = supabase.auth.user();
+        const { data: { user } } = await supabase.auth.getUser();
         const wordCount = entry.split(/\s+/).filter((word) => word).length;
 
         // Insert entry into the Entry table
