@@ -4,19 +4,20 @@ import './App.css';
 
 function Journal() {
   const [entry, setEntry] = useState('');
-  const prompt = "What are you grateful for today?";
+  const test_prompt = "What are you grateful for today?";
+  const test_prompt_id = "e3967550-0977-4a7e-9cd1-9189564988e1";
 
   const handleSave = async () => {
     if (entry.trim()) {
       try {
-        const user = supabase.auth.user();
+        const { data: { user }} = await supabase.auth.getUser();
         const wordCount = entry.split(/\s+/).filter((word) => word).length;
 
         // Insert entry into the Entry table
         const { data: entryData, error: entryError } = await supabase
           .from('Entry')
           .insert([
-            { person_id: user.id, prompt, body: entry },
+            { person_id: user.id, prompt_id: test_prompt_id , body: entry },
           ]);
 
         if (entryError) throw entryError;
@@ -52,8 +53,8 @@ function Journal() {
 
   return (
     <div className="container">
-      <div className="prompt">
-        <p>{prompt}</p>
+      <div className="test_prompt">
+        <p>{test_prompt}</p>
       </div>
       <div
         id="journal-entry"
