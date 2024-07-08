@@ -22,17 +22,22 @@ function Journal() {
 
         if (entryError) throw entryError;
 
-        // Update the Person table
-        const { data: personData, error: personError } = await supabase
-          .from('Person')
-          .update({
-            words_written: supabase.rpc('increment_word_count', { increment: wordCount }),
-            entries_made: supabase.rpc('increment_count', { increment: 1 }),
-            days_active: supabase.rpc('increment_count', { increment: 1 }),
-          })
-          .eq('id', user.id);
+        const wcUpdated = await supabase.rpc('increment_word_count', { increment: wordCount })
+        console.log(wcUpdated)
 
-        if (personError) throw personError;
+        // Update the users table
+        /* 
+          invoke the rpc user_makes_entry(user_id, words_delta)
+          if (daily_entry_made) {
+            days_active will increment
+          }
+          entries_made will increment
+          words_written will increment by the delta
+        */
+        let {data, error} = await supabase.rpc('user_makes_entry', { user_id: user.id, word_count: wordCount})
+
+        if (error) throw error
+        else console.log(data)
 
         console.log('Entry saved:', entryData);
         alert('Your journal entry has been saved!');
