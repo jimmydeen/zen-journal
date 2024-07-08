@@ -7,34 +7,40 @@ function Journal() {
   const [stage, setStage] = useState(0)
   const [userState, setUserState] = useState({})
   const [entry, setEntry] = useState('');
-  const prompt = "What are you grateful for today?";
+  const test_prompt = "What are you grateful for today?";
+  const test_prompt_id = "e3967550-0977-4a7e-9cd1-9189564988e1";
 
   const handleSave = async () => {
     if (entry.trim()) {
       try {
-        const user = supabase.auth.user();
+        const { data: { user }} = await supabase.auth.getUser();
         const wordCount = entry.split(/\s+/).filter((word) => word).length;
 
         // Insert entry into the Entry table
         const { data: entryData, error: entryError } = await supabase
           .from('Entry')
           .insert([
-            { person_id: user.id, prompt, body: entry },
+            { person_id: user.id, prompt_id: test_prompt_id , body: entry },
           ]);
 
         if (entryError) throw entryError;
 
-        // Update the Person table
-        const { data: personData, error: personError } = await supabase
-          .from('Person')
-          .update({
-            words_written: supabase.rpc('increment_word_count', { increment: wordCount }),
-            entries_made: supabase.rpc('increment_count', { increment: 1 }),
-            days_active: supabase.rpc('increment_count', { increment: 1 }),
-          })
-          .eq('id', user.id);
+        const wcUpdated = await supabase.rpc('increment_word_count', { increment: wordCount })
+        console.log(wcUpdated)
 
-        if (personError) throw personError;
+        // Update the users table
+        /* 
+          invoke the rpc user_makes_entry(user_id, words_delta)
+          if (daily_entry_made) {
+            days_active will increment
+          }
+          entries_made will increment
+          words_written will increment by the delta
+        */
+        let {data, error} = await supabase.rpc('user_makes_entry', { user_id: user.id, word_count: wordCount})
+
+        if (error) throw error
+        else console.log(data)
 
         console.log('Entry saved:', entryData);
         alert('Your journal entry has been saved!');
@@ -81,7 +87,7 @@ function Journal() {
       {stage === 3 &&
         <div>
           <div className="prompt">
-            <p>{prompt}</p>
+            <p>{test_prompt}</p>
           </div>
           <div
             id="journal-entry"
