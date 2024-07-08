@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import fire from './fire-1-svgrepo-com-cropped.svg'
+import eclipse from './Eclipse.gif'
+import { supabase } from './Supabase';
 import quill from './7830805_tool_quill_design_icon(2).png'
 import './App.css';
 
 function Profile() {
+  const [isLoading, setIsLoading] = useState(true)
   const [dogImage, setDogImage] = useState()
   const [wordsWritten, setWordsWritten] = useState(4000)
   const [entries, setEntries] = useState(173)
@@ -11,12 +14,65 @@ function Profile() {
   const [activeDays, setActiveDays] = useState(123)
   const [membersSince, setMembersSince] = useState('12/03/2023')
   useEffect(() => {
-    fetch("https://dog.ceo/api/breeds/image/random")
-    .then(response => response.json())
-    .then(data => setDogImage(data.message))
-  },[])
+    let ignore = false
+    // race condition
+    async function fetchData() {
+      const dogResponse = await fetch("https://dog.ceo/api/breeds/image/random")
+      const dogData = await dogResponse.json()
+
+      const { data: { user } } = await supabase.auth.getUser()
+      const id = user.id
+      const { data, error } = await supabase.from('users').select(
+        `
+        created_at,
+        days_active,
+        entries_made,
+        words_written,
+        encouragements,
+        daily_entry_made
+        `
+      ).eq('id', id)
+
+      if (error) {
+        alert(error)
+      } else {
+        if (!ignore) {
+          setDogImage(dogData.message)
+          if (data.length === 1) {
+            const ourUser = data[0]
+            setWordsWritten(ourUser.words_written)
+            setEntries(ourUser.entries_made)
+            setWordsOfEncouragement(ourUser.encouragements)
+            setActiveDays(ourUser.days_active)
+            
+            const date = new Date(ourUser.created_at)
+            const options = {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            };
+            setMembersSince(date.toLocaleDateString('en-US', options))
+            
+            setIsLoading(false)
+          } else {
+            console.error("Either 0 or more than 1 user found pertaining to id.")
+          }
+        }
+      }
+    } 
+    fetchData()
+    return () => {
+      ignore = true
+      setIsLoading(true)
+    }
+  }, [])
 
   return (
+    isLoading ? 
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}> 
+      <img src={eclipse} alt="loading icon"/>
+    </div>
+    :
     <div className="container">
       <div className="profile-header">
         <div className="profile-pic"><img src={dogImage} alt="profile-pic"/></div>
