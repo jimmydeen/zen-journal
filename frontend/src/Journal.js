@@ -34,7 +34,7 @@ function Journal() {
           entries_made will increment
           words_written will increment by the delta
         */
-        let {data, error} = await supabase.rpc('user_makes_entry', { user_id: user.id, word_count: wordCount})
+        let {data, error} = await supabase.rpc('user_makes_entry', { user_id: user.id, word_count: wordCount, prompt_id_argument: test_prompt_id})
 
         if (error) throw error
         else console.log(data)
