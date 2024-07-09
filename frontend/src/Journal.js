@@ -3,14 +3,16 @@ import { supabase } from './Supabase.js'; // Import Supabase client
 import LoadingText from './loading-text.js';
 import './App.css';
 import QuestionAndAnswer from './questionAndAnswer.js';
+import { backendApiUrl, portionOfTimesToFetchFromBackend }  from './backendApi.js';
 
 function Journal() {
   const [stage, setStage] = useState(0)
   const [userState, setUserState] = useState({})
   const [entry, setEntry] = useState('');
-
-  const test_prompt = "What are you grateful for today?";
-  const test_prompt_id = "e3967550-0977-4a7e-9cd1-9189564988e1";
+  const [prompt, setPrompt] = useState('')
+  const [promptId, setPromptId] = useState(null)
+  // const test_prompt = "What are you grateful for today?";
+  // const test_prompt_id = "e3967550-0977-4a7e-9cd1-9189564988e1";
 
   const handleSave = async () => {
     if (entry.trim()) {
@@ -22,7 +24,7 @@ function Journal() {
         const { data: entryData, error: entryError } = await supabase
           .from('Entry')
           .insert([
-            { person_id: user.id, prompt_id: test_prompt_id , body: entry },
+            { person_id: user.id, prompt_id: promptId , body: entry },
           ]);
 
         if (entryError) throw entryError;
@@ -39,7 +41,7 @@ function Journal() {
           entries_made will increment
           words_written will increment by the delta
         */
-        let {data, error} = await supabase.rpc('user_makes_entry', { user_id: user.id, word_count: wordCount, prompt_id_argument: test_prompt_id})
+        let {data, error} = await supabase.rpc('user_makes_entry', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
 
         if (error) throw error
         else console.log(data)
@@ -70,11 +72,55 @@ function Journal() {
   }, [])
 
   useEffect(() => {
+    let ignore = false
     // we must fetch the prompt
     if (stage === 3) {
-      
+      // randomly determine if we'll get a prompt from the database or from the backend api
+      // if (Math.random() * 10 < portionOfTimesToFetchFromBackend) {
+        // we'll fetch from the backend
+        const fetchFromBackend = async function () {
+          const params = new URLSearchParams(userState)
+          try {
+            // get the generated prompt
+            const response = await fetch(`${backendApiUrl}?${params.toString()}`, {
+              method: 'GET'
+            })
+            if (!response.ok) throw new Error(response.status)
+            console.log(response.status)
+            const backendData = await response.json()
+            if (!ignore) {
+              setPrompt(backendData.message)
+            }
+
+            // write this new prompt to the database
+            let { data, error } = await supabase
+              .rpc('create_new_prompt', {
+                p_category_flag: 42, // needs to be computed based on user state but for now use this stub
+                p_number_entries: 0, 
+                p_prompt_text: prompt
+              })
+            if (error) throw new Error(error)
+            else if (!ignore) {
+              setPromptId(data.new_id)
+            }
+          } catch(error) {
+            alert(error)
+          }
+        }
+        fetchFromBackend()
+      // } else {
+      //   // we'll get from our database (random atm)
+      //   supabase.
+      // }
+
+      if (!ignore) setStage(4)
     }
-  }, [stage])
+
+    return () => {
+      ignore = true
+    }
+  }, [stage, prompt, userState])
+
   return (
     <div className="container">
       {/* First Question */}
@@ -96,7 +142,7 @@ function Journal() {
       {stage === 4 && 
         <div className='question'>
           <div className="prompt">
-            <p>{test_prompt}</p>
+            <p>{prompt}</p>
           </div>
           <div
             id="journal-entry"
