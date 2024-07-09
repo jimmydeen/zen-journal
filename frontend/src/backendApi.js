@@ -1,3 +1,3 @@
-export const backendApiUrl = process.env.BACKEND_API
-export const portionOfTimesToFetchFromBackend = process.env.NUM_TIMES_FETCH_FROM_BACKEND_OUT_OF_TEN 
+export const backendApiUrl = process.env.REACT_APP_BACKEND_API 
+export const portionOfTimesToFetchFromBackend = process.env.REACT_APP_NUM_TIMES_FETCH_FROM_BACKEND_OUT_OF_TEN 
 export default backendApiUrl

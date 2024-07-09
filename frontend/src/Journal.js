@@ -71,6 +71,7 @@ function Journal() {
     }
   }, [])
 
+  // if we're at the loading stage fetch the prompt
   useEffect(() => {
     let ignore = false
     // we must fetch the prompt
@@ -86,7 +87,6 @@ function Journal() {
               method: 'GET'
             })
             if (!response.ok) throw new Error(response.status)
-            console.log(response.status)
             const backendData = await response.json()
             if (!ignore) {
               setPrompt(backendData.message)
@@ -102,6 +102,7 @@ function Journal() {
             if (error) throw new Error(error)
             else if (!ignore) {
               setPromptId(data.new_id)
+              setStage(4)
             }
           } catch(error) {
             alert(error)
@@ -112,8 +113,6 @@ function Journal() {
       //   // we'll get from our database (random atm)
       //   supabase.
       // }
-
-      if (!ignore) setStage(4)
     }
 
     return () => {
