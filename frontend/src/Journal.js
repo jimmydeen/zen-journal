@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { supabase } from './Supabase.js'; // Import Supabase client
+import LoadingText from './loading-text.js';
 import './App.css';
 import QuestionAndAnswer from './questionAndAnswer.js';
 
@@ -7,6 +8,7 @@ function Journal() {
   const [stage, setStage] = useState(0)
   const [userState, setUserState] = useState({})
   const [entry, setEntry] = useState('');
+
   const test_prompt = "What are you grateful for today?";
   const test_prompt_id = "e3967550-0977-4a7e-9cd1-9189564988e1";
 
@@ -59,11 +61,6 @@ function Journal() {
     setEntry(e.target.innerText);
   };
 
-  useEffect(() => {
-    console.log(userState)
-    console.log(stage)
-  }, [userState, stage])
-
   const handleResponse = useCallback((response, stage) => {
     return () => {
       const stageStrings = ['overall', 'energy', 'isStressed']
@@ -72,6 +69,12 @@ function Journal() {
     }
   }, [])
 
+  useEffect(() => {
+    // we must fetch the prompt
+    if (stage === 3) {
+      
+    }
+  }, [stage])
   return (
     <div className="container">
       {/* First Question */}
@@ -84,8 +87,14 @@ function Journal() {
       {stage === 2 &&
         <QuestionAndAnswer stage={2} question="Did you feel stressed at all today?" answers={['Yes', 'No']} handleResponse={handleResponse}/>
       }
+      {/* loading screen to indicate we're either fetching or generating the prompt*/}
       {stage === 3 &&
-        <div>
+        <div className='question'>
+          <LoadingText/>
+        </div>
+      }
+      {stage === 4 && 
+        <div className='question'>
           <div className="prompt">
             <p>{test_prompt}</p>
           </div>
