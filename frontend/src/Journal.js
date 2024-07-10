@@ -14,7 +14,7 @@ function Journal() {
   // const test_prompt = "What are you grateful for today?";
   // const test_prompt_id = "e3967550-0977-4a7e-9cd1-9189564988e1";
 
-  const handleSave = async () => {
+  const handleSave = useCallback(async () => {
     if (entry.trim()) {
       try {
         const { data: { user }} = await supabase.auth.getUser();
@@ -29,8 +29,7 @@ function Journal() {
 
         if (entryError) throw entryError;
 
-        const wcUpdated = await supabase.rpc('increment_word_count', { increment: wordCount })
-        console.log(wcUpdated)
+        await supabase.rpc('increment_word_count', { increment: wordCount })
 
         // Update the users table
         /* 
@@ -38,18 +37,19 @@ function Journal() {
           if (daily_entry_made) {
             days_active will increment
           }
+          Entry
           entries_made will increment
           words_written will increment by the delta
+          Prompt
+          updates row corresponding to the prompt
         */
-        let {data, error} = await supabase.rpc('user_makes_entry', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
-
+        let {data, error} = await supabase.rpc('update_user_and_prompt', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
         if (error) throw error
         else console.log(data)
 
-        console.log('Entry saved:', entryData);
-        alert('Your journal entry has been saved!');
         setEntry('');
         document.getElementById('journal-entry').innerText = '';
+        setStage(0)
       } catch (error) {
         console.error('Error saving entry:', error.message);
         alert('Error saving entry. Please try again.');
@@ -57,7 +57,7 @@ function Journal() {
     } else {
       alert('Please write something before saving.');
     }
-  };
+  }, [promptId, entry]);
 
   const handleInput = (e) => {
     setEntry(e.target.innerText);
@@ -93,18 +93,23 @@ function Journal() {
             }
 
             // write this new prompt to the database
-            let { data, error } = await supabase
-              .rpc('create_new_prompt', {
-                p_category_flag: 42, // needs to be computed based on user state but for now use this stub
-                p_number_entries: 0, 
-                p_prompt_text: prompt
-              })
+            const { data, error } = await supabase
+              .from('Prompt')
+              .insert(
+                {
+                  category_flag: 42, // needs to be computed based on user state but for now use this stub
+                  number_entries: 0, 
+                  prompt_text: backendData.message
+                }
+              )
+              .select()
             if (error) throw new Error(error)
             else if (!ignore) {
-              setPromptId(data.new_id)
+              setPromptId(data[0].prompt_id)
               setStage(4)
             }
           } catch(error) {
+            console.error(error)
             alert(error)
           }
         }
@@ -118,7 +123,8 @@ function Journal() {
     return () => {
       ignore = true
     }
-  }, [stage, prompt, userState])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stage])
 
   return (
     <div className="container">
