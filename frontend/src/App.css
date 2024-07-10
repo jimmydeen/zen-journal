@@ -229,3 +229,35 @@ button:hover {
   border-bottom: 1px solid #333333;
   display: block;
 }
+
+@keyframes loading-text-fade-in {
+  0% {
+    opacity: 0
+  }
+  50% {
+    opacity: 1
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes loading-text-fade-out {
+  0% {
+    opacity: 1
+  }
+  50% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0
+  }
+}
+
+.fade-in {
+  animation: loading-text-fade-in 6s linear both;
+}
+
+.fade-out {
+  animation: loading-text-fade-out 6s linear both;
+}
