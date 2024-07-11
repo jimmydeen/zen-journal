@@ -265,6 +265,8 @@ button:hover {
   font-size: 1rem;
   height: 1rem;
   border-radius: 1ch;
+}
+
 @keyframes loading-text-fade-in {
   0% {
     opacity: 0
