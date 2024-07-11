@@ -69,8 +69,36 @@ function Profile() {
 
   return (
     isLoading ? 
-    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}> 
-      <img src={eclipse} alt="loading icon"/>
+    <div className="container">
+      <div className="profile-header">
+        <div className="profile-pic skeleton"/>
+        <div className='profile-details'>
+          <div className='profile-name-skeleton skeleton'/>
+          <div className="skeleton-streak skeleton"/>
+        </div>
+      </div>
+      <div className='stats'>
+        <div className='stat'>
+          <p>Words written</p>
+          <div className='skeleton-text skeleton'/>
+        </div>
+        <div className='stat'>
+          <p>Entries</p>
+          <div className='skeleton-text skeleton'/>
+        </div>
+        <div className='stat'>
+          <p>Words of Encouragements</p>
+          <div className='skeleton-text skeleton'/>
+        </div>
+        <div className='stat'>
+          <p>Active Days</p>
+          <div className='skeleton-text skeleton'/>
+        </div>
+        <div className='stat'>
+          <p>Member Since</p>
+          <div className='skeleton-text skeleton'/>
+        </div>
+      </div>
     </div>
     :
     <div className="container">
