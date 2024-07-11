@@ -66,6 +66,23 @@ body {
   }
 }
 
+.question {
+  animation: slide-in 1s;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100vw)
+  }
+  to {
+    transform: translateX(0)
+  }
+}
+.answers {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
 
 .prompt {
   font-size: 1.2em;
@@ -248,4 +265,34 @@ button:hover {
   font-size: 1rem;
   height: 1rem;
   border-radius: 1ch;
+@keyframes loading-text-fade-in {
+  0% {
+    opacity: 0
+  }
+  50% {
+    opacity: 1
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes loading-text-fade-out {
+  0% {
+    opacity: 1
+  }
+  50% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0
+  }
+}
+
+.fade-in {
+  animation: loading-text-fade-in 6s linear both;
+}
+
+.fade-out {
+  animation: loading-text-fade-out 6s linear both;
 }
