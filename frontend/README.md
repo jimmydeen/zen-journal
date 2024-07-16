@@ -9,6 +9,12 @@
 * `REACT_APP_BACKEND_API = https://journal-chat-backend-u7wru5pkua-ts.a.run.app/prompt`, a public api made to provide prompts based on url query parameters. For example: `https://journal-chat-backend-u7wru5pkua-ts.a.run.app/prompt?isStressed=yes&energy=high&overall=average`,
 * `REACT_APP_NUM_TIMES_FETCH_FROM_BACKEND_OUT_OF_TEN = 6` to control the number of times in which a user will generate a prompt from the public backend api as opposed to reusing one from our database
 
+## CORS Errors
+You may get CORS errors when your React tries to AJAX to your local supabase service.
+If you use chrome, [chrome doesn't allow cors requests to localhost](https://stackoverflow.com/questions/10883211/why-does-my-http-localhost-cors-origin-not-work)
+
+There is an issue concerning [CORS requests to the Auth service of a local supabase](https://github.com/supabase/supabase/issues/28008).
+
 ## How to deploy (both frontend and backend)
 The process of deploying will follow steps 1 and 2 from above but you'll need to `supabase link` - more about linking [supabase link](https://supabase.com/docs/reference/cli/supabase-link) - your 
 supabase repo to a supabase project and `supabase db push` - more about pushing [supabase push](https://supabase.com/docs/reference/cli/supabase-db-push) - to that supabase project.
