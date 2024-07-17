@@ -29,11 +29,9 @@ function Journal() {
 
         if (entryError) throw entryError;
 
-        await supabase.rpc('increment_word_count', { increment: wordCount })
-
         // Update the users table
         /* 
-          invoke the rpc user_makes_entry(user_id, words_delta)
+          invoke the rpc update_user_and_prompt(user_id, words_delta)
           if (daily_entry_made) {
             days_active will increment
           }
