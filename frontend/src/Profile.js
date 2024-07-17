@@ -13,6 +13,7 @@ function Profile() {
   const [wordsOfEncouragement, setWordsOfEncouragement] = useState(50)
   const [activeDays, setActiveDays] = useState(123)
   const [membersSince, setMembersSince] = useState('12/03/2023')
+  const [streak, setStreak] = useState('0')
   useEffect(() => {
     let ignore = false
     // race condition
@@ -29,7 +30,8 @@ function Profile() {
         entries_made,
         words_written,
         encouragements,
-        daily_entry_made
+        daily_entry_made,
+        streak
         `
       ).eq('id', id)
 
@@ -108,7 +110,7 @@ function Profile() {
           <div className='profile-name'><b>Edward</b></div>
           <div className="profile-streak">
             <img src={quill} alt="quill"/>
-            <p><b>12</b> days journalled</p>
+            <p><b>{streak}</b> days journalled</p>
           </div>
         </div>
       </div>
