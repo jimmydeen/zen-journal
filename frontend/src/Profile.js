@@ -14,6 +14,7 @@ function Profile() {
   const [activeDays, setActiveDays] = useState(123)
   const [membersSince, setMembersSince] = useState('12/03/2023')
   const [streak, setStreak] = useState('0')
+  const [email, setEmail] = useState()
   useEffect(() => {
     let ignore = false
     // race condition
@@ -31,7 +32,8 @@ function Profile() {
         words_written,
         encouragements,
         daily_entry_made,
-        streak
+        streak,
+        email
         `
       ).eq('id', id)
 
@@ -46,7 +48,8 @@ function Profile() {
             setEntries(ourUser.entries_made)
             setWordsOfEncouragement(ourUser.encouragements)
             setActiveDays(ourUser.days_active)
-            
+            setEmail(ourUser.email) 
+            setStreak(ourUser.streak)
             const date = new Date(ourUser.created_at)
             const options = {
               year: 'numeric',
@@ -107,10 +110,10 @@ function Profile() {
       <div className="profile-header">
         <div className="profile-pic"><img src={dogImage} alt="profile-pic"/></div>
         <div className='profile-details'>
-          <div className='profile-name'><b>Edward</b></div>
+          <div className='profile-name'><b>{email}</b></div>
           <div className="profile-streak">
             <img src={quill} alt="quill"/>
-            <p><b>{streak}</b> days journalled</p>
+            <p><b>{streak}</b> day{streak > 1 ? 's' : ''} journalled</p>
           </div>
         </div>
       </div>

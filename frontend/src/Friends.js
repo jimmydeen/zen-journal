@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 
 function Friends() {
+  useEffect(() => {
+    alert("This feature is coming soon, but is not available at the moment. Here's a rough outline of what it'll look like.")
+  }, [])
   const friends = [
     { id: 1, name: 'Alice', streak: 5 },
     { id: 2, name: 'Bob', streak: 10 },
