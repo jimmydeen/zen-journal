@@ -298,3 +298,59 @@ button:hover {
 .fade-out {
   animation: loading-text-fade-out 6s linear both;
 }
+
+#welcome-back-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 43px - 1.2em);
+}
+
+#welcoming-text {
+  display: inline-block;
+}
+
+#welcoming-text > h1 {
+  overflow: hidden;
+  border-right: .15em solid orange;
+  font-family: monospace;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+}
+/* animation-timing function needs to adjust the number of steps depending on the number of characters in the string */
+.typing {
+  animation: typing 1.5s steps(14, end) both,
+  blinking-caret .5s step-end infinite;
+}
+.deleting {
+  animation: deleting 1.5s steps(14, end) both,
+  blinking-caret .5s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes deleting {
+  from {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes blinking-caret {
+  from, to {
+    border-color: solid orange;
+  }  
+  50% {
+    border-color: transparent;
+  }
+}
