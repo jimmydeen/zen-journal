@@ -46,7 +46,8 @@ export function WelcomeBack() {
     if (streak !== undefined && dailyEntryMade !== undefined) {
       // if they've journalled today, congratulate them for it and then update them with their streak
       if (dailyEntryMade) {
-        setText(['welcome back', `another day journalled, "Documenting little details of your everyday life becomes a celebration of who you are." — Carolyn V. Hamilton`, `you've journalled for ${streak} days continuously`])
+        setText(['welcome back', `another day journalled, be proud of yourself`, `you've journalled for ${streak} day`.concat((streak === 1 ? '' : 's') + ' continuously')])
+      // "Documenting little details of your everyday life becomes a celebration of who you are." 
       // if they haven't journalled today
       } else {
         // if they haven't journalled in a while (no streak)
@@ -57,10 +58,12 @@ export function WelcomeBack() {
           setText(["welcome back", "make an entry today to extend your streak", `you've journalled for ${streak} days continuously`])
         }
       }
+      console.log('here')
       const timer = setTimeout(() => {
+        console.log('should be setting deleting')
         setIsTyping(false)
       }, 5000)
-      clearTimeout(timer)
+      return () => {clearTimeout(timer)}
     }
   }, [streak, dailyEntryMade])
 
