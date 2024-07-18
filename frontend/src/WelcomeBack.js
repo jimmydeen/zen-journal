@@ -68,9 +68,10 @@ export function WelcomeBack() {
   }, [streak, dailyEntryMade])
 
 
-  // when its deleting, wait some time, change the text index and set typing
   useEffect(() => {
+    // when its deleting, wait some time, change the text index and set typing
     if (!isTyping) {
+      console.log('its deleting, so we should move onto the next string')
       const timer = setTimeout(() => {
         setTextIndex(prev => (prev + 1) % text.length)
         setIsTyping(true)
@@ -78,6 +79,11 @@ export function WelcomeBack() {
       return () => {
         clearTimeout(timer)
       }
+    // when its typing, wait some time, then delete
+    } else {
+      const timer = setTimeout(() => {
+        setIsTyping(false)
+      }, 2500)
     }
   }, [isTyping, text])
 
