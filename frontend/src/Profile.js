@@ -49,6 +49,7 @@ function Profile() {
             setWordsOfEncouragement(ourUser.encouragements)
             setActiveDays(ourUser.days_active)
             setEmail(ourUser.email) 
+            setStreak(ourUser.streak)
             const date = new Date(ourUser.created_at)
             const options = {
               year: 'numeric',
@@ -112,7 +113,7 @@ function Profile() {
           <div className='profile-name'><b>{email}</b></div>
           <div className="profile-streak">
             <img src={quill} alt="quill"/>
-            <p><b>{streak}</b> days journalled</p>
+            <p><b>{streak}</b> day{streak > 1 ? 's' : ''} journalled</p>
           </div>
         </div>
       </div>
