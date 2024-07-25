@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './SignUp.css';
-import { supabase } from './Supabase';
+import '../assets/styles/SignUp.css';
+import { supabase } from '../services/Supabase';
 import { useNavigate } from 'react-router-dom';
-import Eclipse from './Eclipse.gif'
-import useIsLoggedInStatus from './useLoggedInStatus';
+import Eclipse from '../assets/images/Eclipse.gif'
+import useIsLoggedInStatus from '../hooks/useLoggedInStatus';
 
 const SignUp = () => {
   const isLoggedIn = useIsLoggedInStatus()

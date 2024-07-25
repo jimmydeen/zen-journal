@@ -1,4 +1,4 @@
-import { supabase } from "./Supabase";
+import { supabase } from "../services/Supabase";
 import { useEffect, useState } from "react";
 
 export function useIsLoggedInStatus() {

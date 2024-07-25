@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { supabase } from './Supabase.js'; // Import Supabase client
-import LoadingText from './loading-text.js';
-import './App.css';
-import QuestionAndAnswer from './questionAndAnswer.js';
-import { backendApiUrl, portionOfTimesToFetchFromBackend }  from './backendApi.js';
+import { supabase } from '../services/Supabase.js'; // Import Supabase client
+import LoadingText from '../components/loading-text.js';
+import '../assets/styles/App.css';
+import QuestionAndAnswer from '../components/questionAndAnswer.js';
+import { backendApiUrl, portionOfTimesToFetchFromBackend }  from '../services/backendApi.js';
 
 function Journal() {
   const [stage, setStage] = useState(0)

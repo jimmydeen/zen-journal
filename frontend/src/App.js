@@ -1,15 +1,15 @@
 import React from 'react';
-import './App.css';
+import './assets/styles/App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import UserPage from './UserPage';
-import Journal from './Journal';
-import Friends from './Friends';
-import Profile from './Profile';
-import Login from './Login';
-import SignUp from './SignUp';
-import ForgotPassword from './ForgotPassword';
-import LoadingScreen from './LoadingScreen';
-import WelcomeBack from './WelcomeBack';
+import UserPage from './pages/UserPage';
+import Journal from './pages/Journal';
+import Friends from './pages/Friends';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import ForgotPassword from './pages/ForgotPassword';
+import LoadingScreen from './pages/LoadingScreen';
+import WelcomeBack from './pages/WelcomeBack';
 
 function App() {
 

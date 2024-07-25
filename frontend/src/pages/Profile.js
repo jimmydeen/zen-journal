@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import fire from './fire-1-svgrepo-com-cropped.svg'
-import eclipse from './Eclipse.gif'
-import { supabase } from './Supabase';
-import quill from './7830805_tool_quill_design_icon(2).png'
-import './App.css';
+import { supabase } from '../services/Supabase';
+import quill from '../assets/images/7830805_tool_quill_design_icon(2).png'
+import '../assets/styles/App.css';
 
 function Profile() {
   const [isLoading, setIsLoading] = useState(true)
