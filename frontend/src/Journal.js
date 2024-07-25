@@ -11,6 +11,8 @@ function Journal() {
   const [entry, setEntry] = useState('');
   const [prompt, setPrompt] = useState('')
   const [promptId, setPromptId] = useState(null)
+
+  const [dailyEntryMade, setDailyEntryMade] = useState()
   // const test_prompt = "What are you grateful for today?";
   // const test_prompt_id = "e3967550-0977-4a7e-9cd1-9189564988e1";
 
@@ -43,12 +45,24 @@ function Journal() {
           Prompt
           updates row corresponding to the prompt
         */
-        let {data, error} = await supabase.rpc('update_user_and_prompt_entry', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
-        if (error) throw error
-        else console.log(data)
+        let newStreak
+        let {data, error} = await supabase.rpc('update_user_and_prompt', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
+        if (error) {console.error(error); throw error;}
+        else {
+          newStreak = data.new_streak_value
+        }
 
         setEntry('');
         document.getElementById('journal-entry').innerText = '';
+        if (dailyEntryMade) {
+          alert("Another entry made for today.")
+        } else {
+          if (newStreak === 1) {
+            alert(`You've started a new streak. Keep journalling daily to increase your streak.`)
+          } else {
+            alert(`You've extended your streak to ${newStreak} days.`)
+          }
+        }
         setStage(0)
       } catch (error) {
         console.error('Error saving entry:', error.message);
@@ -57,7 +71,7 @@ function Journal() {
     } else {
       alert('Please write something before saving.');
     }
-  }, [promptId, entry]);
+  }, [promptId, entry, dailyEntryMade]);
 
   const handleInput = (e) => {
     setEntry(e.target.innerText);
@@ -68,6 +82,26 @@ function Journal() {
       const stageStrings = ['overall', 'energy', 'isStressed']
       setUserState(prevState => ({...prevState, [stageStrings[stage]]: response}))
       setStage(prev => prev + 1)
+    }
+  }, [])
+
+  // determine whether the person has already made their daily entry or not
+  useEffect(() => {
+    async function fetchDailyEntryMadeStatus() {
+      const { data: { user } } = await supabase.auth.getUser()
+      const id = user.id
+      const { data, error } = await supabase.from('users').select(
+        `
+        daily_entry_made,
+        `
+      ).eq('id', id)
+
+      if (data.length !== 1) {
+        console.error("There should only be one user for this id.")
+      }
+
+      const ourUser = data[0]
+      setDailyEntryMade(ourUser.daily_entry_made)
     }
   }, [])
 
