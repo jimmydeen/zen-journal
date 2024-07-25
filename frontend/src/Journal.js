@@ -30,6 +30,8 @@ function Journal() {
           ]);
 
         if (entryError) throw entryError;
+        console.log("User ID:", user.id)
+        console.log("Promp ID:", promptId)
 
         // Update the users table
         /* 
@@ -44,11 +46,9 @@ function Journal() {
           updates row corresponding to the prompt
         */
         let newStreak
-        console.log(typeof(user.id), typeof(promptId))
         let {data, error} = await supabase.rpc('update_user_and_prompt', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
         if (error) {console.error(error); throw error;}
         else {
-          console.log(data)
           newStreak = data.new_streak_value
         }
 
@@ -122,6 +122,8 @@ function Journal() {
             })
             if (!response.ok) throw new Error(response.status)
             const backendData = await response.json()
+            console.log(response)
+            console.log(backendData)
             if (!ignore) {
               setPrompt(backendData.message)
             }

@@ -14,6 +14,7 @@ export function WelcomeBack() {
     async function getData() {
       // fetch the streak and daily_entry_made
       const { data: { user } } = await supabase.auth.getUser()
+      console.log(user)
       const id = user.id
       const { data, error } = await supabase.from('users').select(
         `
