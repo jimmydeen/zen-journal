@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './SignUp.css';
 import { supabase } from './Supabase';
 import { useNavigate } from 'react-router-dom';
+import Eclipse from './Eclipse.gif'
 import useIsLoggedInStatus from './useLoggedInStatus';
 
 const SignUp = () => {
@@ -9,10 +10,12 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [hasSignedUp, setHasSignedUp] = useState(0) // ternary value: 0 meaning false, 1 meaning in the process of, 2 meaning has signed up
   const navigate = useNavigate()
 
   // later on, use ac to determine if there is already a person signed in and if so skip the sign in page
   const handleSubmit = async (event) => {
+    setHasSignedUp(1)
     event.preventDefault();
     let {data, error} = await supabase.auth.signUp({
       email,
@@ -20,11 +23,15 @@ const SignUp = () => {
     })
     if (error) {
       alert(error.message)
+      setHasSignedUp(0)
     } else {
-      navigate('/user')
+      setHasSignedUp(2)
     }
   };
 
+  const handleClick = (event) => {
+    navigate("/")
+  }
   useEffect(() => {
     if (isLoggedIn) {
       navigate('/user')
@@ -34,29 +41,43 @@ const SignUp = () => {
   return (
     <div className="signup-container">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit} className="signup-form">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+      {hasSignedUp === 0 &&
+        <form onSubmit={handleSubmit} className="signup-form">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <button type="submit" className="signup-button">Sign Up</button>
-      </form>
+          <button type="submit" className="signup-button">Sign Up</button>
+        </form>
+      }
+      {hasSignedUp === 1 &&
+        <>
+          <img src={Eclipse} alt="loading-icon"/>
+        </>
+      }
+      {hasSignedUp === 2 &&
+        <>
+          <p>You've signed up for Journal More, please check your email in order to confirm your sign up and to log in.</p>
+          <button onClick={handleClick} className='signup-button'>Go back</button>
+        </>
+      }
     </div>
   );
 };
 
 export default SignUp;
+
