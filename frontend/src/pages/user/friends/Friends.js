@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../../assets/styles/App.css';
+import containerStyle from '../../../assets/styles/container.module.css';
 
 function Friends() {
   useEffect(() => {
@@ -28,7 +29,7 @@ function Friends() {
   };
 
   return (
-    <div className="container">
+    <div className={containerStyle.container}>
       <h2>Friends Leaderboard</h2>
       <div className="leaderboard">
         {friends.map(friend => (

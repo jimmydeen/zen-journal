@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from "../services/Supabase"
+import styles from '../assets/styles/tabs.module.css'
 
 function Navbar() {
   const navigate = useNavigate()
@@ -13,11 +14,11 @@ function Navbar() {
     }
   }
   return (
-      <nav className="tab-bar">
-        <button className="logout-button" onClick={logOutHandler}>Log Out</button>
-        <Link to="/user/journal" className="tab">Journal</Link>
-        <Link to="/user/friends" className="tab">Friends</Link>
-        <Link to="/user/profile" className="tab">Profile</Link>
+      <nav className={styles['tab-bar']}>
+        <button className={styles['logout-button']} onClick={logOutHandler}>Log Out</button>
+        <Link to="/user/journal" className={styles.tab}>Journal</Link>
+        <Link to="/user/friends" className={styles.tab}>Friends</Link>
+        <Link to="/user/profile" className={styles.tab}>Profile</Link>
       </nav>
   )
 }

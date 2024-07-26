@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../../../services/Supabase.js'; // Import Supabase client
 import LoadingText from '../../../components/loading-text.js';
 import '../../../assets/styles/App.css';
+import containerStyle from '../../../assets/styles/container.module.css';
 import QuestionAndAnswer from '../../../components/questionAndAnswer.js';
 import { backendApiUrl, portionOfTimesToFetchFromBackend }  from '../../../services/backendApi.js';
 
@@ -163,7 +164,7 @@ function Journal() {
   }, [stage])
 
   return (
-    <div className="container">
+    <div className={containerStyle.container}>
       {/* First Question */}
       {stage === 0 &&
         <QuestionAndAnswer stage={0} question="How are you feeling today?" answers={['Great', 'Alright', 'Poor']} handleResponse={handleResponse}/>

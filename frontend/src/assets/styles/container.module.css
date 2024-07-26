@@ -1,0 +1,12 @@
+.container {
+  width: 80%;
+  max-width: 600px;
+  background-color: #34495E; /* Slightly lighter deep blue/purple */
+  background-color: #2a2a72;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px auto;
+  animation: fade-in 1s;
+}

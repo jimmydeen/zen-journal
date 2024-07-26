@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../../services/Supabase';
 import quill from '../../../assets/images/7830805_tool_quill_design_icon(2).png'
 import '../../../assets/styles/App.css';
+import containerStyle from '../../../assets/styles/container.css';
 
 function Profile() {
   const [isLoading, setIsLoading] = useState(true)
@@ -72,7 +73,7 @@ function Profile() {
 
   return (
     isLoading ? 
-    <div className="container">
+    <div className={containerStyle.container}>
       <div className="profile-header">
         <div className="profile-pic skeleton"/>
         <div className='profile-details'>
@@ -104,7 +105,7 @@ function Profile() {
       </div>
     </div>
     :
-    <div className="container">
+    <div className={containerStyle.container}>
       <div className="profile-header">
         <div className="profile-pic"><img src={dogImage} alt="profile-pic"/></div>
         <div className='profile-details'>
