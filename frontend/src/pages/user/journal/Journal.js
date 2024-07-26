@@ -5,6 +5,7 @@ import '../../../assets/styles/App.css';
 import questionStyle from '../../../assets/styles/questionAnswer.module.css';
 import containerStyle from '../../../assets/styles/container.module.css';
 import entryStyle from '../../../assets/styles/entry.module.css';
+import buttonStyle from '../../../assets/styles/button.module.css';
 import QuestionAndAnswer from '../../../components/questionAndAnswer.js';
 import { backendApiUrl, portionOfTimesToFetchFromBackend }  from '../../../services/backendApi.js';
 
@@ -195,7 +196,7 @@ function Journal() {
             onInput={handleInput}
             placeholder="Write your thoughts here..."
           ></div>
-          <button onClick={handleSave}>Save Entry</button>
+          <button className={buttonStyle.button} onClick={handleSave}>Save Entry</button>
         </div>
       }
     </div>

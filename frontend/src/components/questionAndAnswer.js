@@ -1,4 +1,5 @@
 import styles from '../assets/styles/questionAnswer.module.css'
+import buttonStyle from '../assets/styles/button.module.css'
 
 import { memo } from "react"
 function QuestionAndAnswerComponent({stage, question, answers, handleResponse}) {
@@ -7,7 +8,7 @@ function QuestionAndAnswerComponent({stage, question, answers, handleResponse}) 
       <h1>{question}</h1>
       <div className={styles.answer}>
         {answers.map(answer =>  // needs key
-          <button key={answer} onClick={handleResponse(answer, stage)}>{answer}</button>
+          <button key={answer} className={buttonStyle.button} onClick={handleResponse(answer, stage)}>{answer}</button>
         )}
       </div>
     </div>

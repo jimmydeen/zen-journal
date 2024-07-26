@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../services/Supabase";
+import buttonStyle from '../../assets/styles/button.module.css';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -33,7 +34,7 @@ function ForgotPassword() {
           required
         />
 
-        <button type="submit" className="signup-button">Send email</button>
+        <button type="submit" className={buttonStyle.button}>Send email</button>
       </form>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../../assets/styles/App.css';
+import buttonStyle from '../../../assets/styles/button.module.css';
 import containerStyle from '../../../assets/styles/container.module.css';
 
 function Friends() {
@@ -38,7 +39,7 @@ function Friends() {
             <div className="friend-name">{friend.name}</div>
             <div className="friend-streak">🔥{friend.streak} days</div>
             {/* depending on whether the friend has completed their journal for today display either send reminder or congratulate */}
-            <button className="reminder-button" onClick={() => sendReminder(friend.name)}>Send Reminder</button>
+            <button className={buttonStyle.button} onClick={() => sendReminder(friend.name)}>Send Reminder</button>
           </div>
         ))}
       </div>
