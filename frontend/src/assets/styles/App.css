@@ -13,51 +13,6 @@ body {
   color: white;
 }
 
-.container {
-  width: 80%;
-  max-width: 600px;
-  background-color: #34495E; /* Slightly lighter deep blue/purple */
-  background-color: #2a2a72;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  text-align: center;
-  margin: 20px auto;
-  animation: fade-in 1s;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.question {
-  animation: slide-in 1s;
-}
-
-@keyframes slide-in {
-  from {
-    transform: translateX(100vw)
-  }
-  to {
-    transform: translateX(0)
-  }
-}
-.answers {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.prompt {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-}
-
 .entry {
   width: 100%;
   min-height: 200px;

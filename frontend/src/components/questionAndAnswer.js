@@ -1,9 +1,11 @@
+import styles from '../assets/styles/questionAnswer.module.css'
+
 import { memo } from "react"
 function QuestionAndAnswerComponent({stage, question, answers, handleResponse}) {
   return (
-    <div className='question'>
+    <div className={styles.question}>
       <h1>{question}</h1>
-      <div className='answers'>
+      <div className={styles.answer}>
         {answers.map(answer =>  // needs key
           <button key={answer} onClick={handleResponse(answer, stage)}>{answer}</button>
         )}

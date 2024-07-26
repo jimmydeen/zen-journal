@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../../../services/Supabase.js'; // Import Supabase client
 import LoadingText from '../../../components/loading-text.js';
 import '../../../assets/styles/App.css';
+import questionStyle from '../../../assets/styles/questionAnwer.module.css';
 import containerStyle from '../../../assets/styles/container.module.css';
 import QuestionAndAnswer from '../../../components/questionAndAnswer.js';
 import { backendApiUrl, portionOfTimesToFetchFromBackend }  from '../../../services/backendApi.js';
@@ -177,13 +178,13 @@ function Journal() {
       }
       {/* loading screen to indicate we're either fetching or generating the prompt*/}
       {stage === 3 &&
-        <div className='question'>
+        <div className={questionStyle.question}>
           <LoadingText/>
         </div>
       }
       {stage === 4 && 
-        <div className='question'>
-          <div className="prompt">
+        <div className={questionStyle.question}>
+          <div style={{fontSize: "1.2em", marginBottom: "20px"}}>
             <p>{prompt}</p>
           </div>
           <div
