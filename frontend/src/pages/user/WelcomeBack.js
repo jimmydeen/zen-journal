@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { supabase } from "./Supabase";
+import { supabase } from "../../services/Supabase";
+import style from '../../assets/styles/welcomeBack.module.css'
+
 export function WelcomeBack() {
   // state how many days they've been journalling consecutively (streak)
   const [text, setText] = useState(['welcome back'])
@@ -89,9 +91,9 @@ export function WelcomeBack() {
   }, [isTyping, text])
 
   return (
-    <div id="welcome-back-page">
-      <div id="welcoming-text" >
-        <h1 className={isTyping ? "typing" : "deleting"} style={{animationTimingFunction: `steps(${text[textIndex].length})`}}>{text[textIndex]}</h1>
+    <div className={style['welcome-back-page']}>
+      <div className={style['welcoming-text']}>
+        <h1 className={isTyping ? `${style.typing}` : `${style.deleting}`} style={{animationTimingFunction: `steps(${text[textIndex].length})`}}>{text[textIndex]}</h1>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './LoadingScreen.css';
+import '../assets/styles/LoadingScreen.css';
+import buttonStyle from '../assets/styles/button.module.css'
 
 function LoadingScreen() {
   const text = "Journal more with us";
@@ -24,8 +25,8 @@ function LoadingScreen() {
         ))}
       </h1>
       <div className={`button-container ${showButtons ? 'fade-in' : ''}`}>
-        <Link to="/signup"><button className="auth-button">Sign Up</button></Link>
-        <Link to="/login"><button className="auth-button">Login</button></Link>
+        <Link to="/signup"><button className={buttonStyle.button}>Sign Up</button></Link>
+        <Link to="/login"><button className={buttonStyle.button}>Login</button></Link>
       </div>
     </div>
   );

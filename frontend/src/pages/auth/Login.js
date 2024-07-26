@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "./Supabase";
-import useIsLoggedInStatus from "./useLoggedInStatus";
+import { supabase } from "../../services/Supabase";
+import useIsLoggedInStatus from "../../hooks/useLoggedInStatus";
+import buttonStyle from '../../assets/styles/button.module.css';
 
 function Login() {
   const isLoggedIn = useIsLoggedInStatus()
@@ -52,8 +53,8 @@ function Login() {
           required
         />
 
-        <button type="submit" className="signup-button">Login</button>
-        <button onClick={()=>{navigate('/forgot-password')}} className="signup-button">Forgot your password?</button>
+        <button type="submit" className={buttonStyle.button}>Login</button>
+        <button onClick={()=>{navigate('/forgot-password')}} className={buttonStyle.button}>Forgot your password?</button>
       </form>
     </div>
   );

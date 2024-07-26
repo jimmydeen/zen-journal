@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import fire from './fire-1-svgrepo-com-cropped.svg'
-import eclipse from './Eclipse.gif'
-import { supabase } from './Supabase';
-import quill from './7830805_tool_quill_design_icon(2).png'
-import './App.css';
+import { supabase } from '../../../services/Supabase';
+import quill from '../../../assets/images/7830805_tool_quill_design_icon(2).png'
+import '../../../assets/styles/App.css';
+import containerStyle from '../../../assets/styles/container.module.css';
+import profileStyle from '../../../assets/styles/profile.module.css';
 
 function Profile() {
   const [isLoading, setIsLoading] = useState(true)
@@ -74,67 +74,67 @@ function Profile() {
 
   return (
     isLoading ? 
-    <div className="container">
-      <div className="profile-header">
-        <div className="profile-pic skeleton"/>
-        <div className='profile-details'>
-          <div className='profile-name-skeleton skeleton'/>
-          <div className="skeleton-streak skeleton"/>
+    <div className={containerStyle.container}>
+      <div className={profileStyle['profile-header']}>
+        <div className={`${profileStyle['profile-pic']} ${profileStyle.skeleton}`}/>
+        <div className={profileStyle['profile-details']}>
+          <div className={`${profileStyle['profile-name-skeleton']} ${profileStyle.skeleton}`}/>
+          <div className={`${profileStyle['skeleton-streak']} ${profileStyle.skeleton}`}/>
         </div>
       </div>
-      <div className='stats'>
-        <div className='stat'>
+      <div className={profileStyle.stats}>
+        <div className={profileStyle.stat}>
           <p>Words written</p>
-          <div className='skeleton-text skeleton'/>
+          <div className={`${profileStyle['skeleton-text']} ${profileStyle.skeleton}`}/>
         </div>
-        <div className='stat'>
+        <div className={profileStyle.stat}>
           <p>Entries</p>
-          <div className='skeleton-text skeleton'/>
+          <div className={`${profileStyle['skeleton-text']} ${profileStyle.skeleton}`}/>
         </div>
-        <div className='stat'>
+        <div className={profileStyle.stat}>
           <p>Words of Encouragements</p>
-          <div className='skeleton-text skeleton'/>
+          <div className={`${profileStyle['skeleton-text']} ${profileStyle.skeleton}`}/>
         </div>
-        <div className='stat'>
+        <div className={profileStyle.stat}>
           <p>Active Days</p>
-          <div className='skeleton-text skeleton'/>
+          <div className={`${profileStyle['skeleton-text']} ${profileStyle.skeleton}`}/>
         </div>
-        <div className='stat'>
+        <div className={profileStyle.stat}>
           <p>Member Since</p>
-          <div className='skeleton-text skeleton'/>
+          <div className={`${profileStyle['skeleton-text']} ${profileStyle.skeleton}`}/>
         </div>
       </div>
     </div>
     :
-    <div className="container">
-      <div className="profile-header">
-        <div className="profile-pic"><img src={dogImage} alt="profile-pic"/></div>
-        <div className='profile-details'>
-          <div className='profile-name'><b>{email}</b></div>
-          <div className="profile-streak">
+    <div className={containerStyle.container}>
+      <div className={profileStyle['profile-header']}>
+        <div className={profileStyle['profile-pic']}><img src={dogImage} alt="profile-pic"/></div>
+        <div className={profileStyle['profile-details']}>
+          <div className={profileStyle['profile-name']}><b>{email}</b></div>
+          <div className={profileStyle['profile-streak']}>
             <img src={quill} alt="quill"/>
             <p><b>{streak}</b> day{streak > 1 ? 's' : ''} journalled</p>
           </div>
         </div>
       </div>
-      <div className='stats'>
-        <div className='stat'>
+      <div className={profileStyle.stats}>
+        <div className={profileStyle.stat}>
           <p>Words written</p>
           <p>{wordsWritten}</p>
         </div>
-        <div className='stat'>
+        <div className={profileStyle.stat}>
           <p>Entries</p>
           <p>{entries}</p>
         </div>
-        <div className='stat'>
+        <div className={profileStyle.stat}>
           <p>Words of Encouragements</p>
           <p>{wordsOfEncouragement}</p>
         </div>
-        <div className='stat'>
+        <div className={profileStyle.stat}>
           <p>Active Days</p>
           <p>{activeDays}</p>
         </div>
-        <div className='stat'>
+        <div className={profileStyle.stat}>
           <p>Member Since</p>
           <p>{membersSince}</p>
         </div>

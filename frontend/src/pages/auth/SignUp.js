@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './SignUp.css';
-import { supabase } from './Supabase';
+import '../../assets/styles/SignUp.css';
+import { supabase } from '../../services/Supabase';
 import { useNavigate } from 'react-router-dom';
-import Eclipse from './Eclipse.gif'
-import useIsLoggedInStatus from './useLoggedInStatus';
+import Eclipse from '../../assets/images/Eclipse.gif'
+import useIsLoggedInStatus from '../../hooks/useLoggedInStatus';
+import buttonStyle from '../../assets/styles/button.module.css'
 
 const SignUp = () => {
   const isLoggedIn = useIsLoggedInStatus()
@@ -61,7 +62,7 @@ const SignUp = () => {
             required
           />
 
-          <button type="submit" className="signup-button">Sign Up</button>
+          <button type="submit" className={buttonStyle.button}>Sign Up</button>
         </form>
       }
       {hasSignedUp === 1 &&
@@ -72,7 +73,7 @@ const SignUp = () => {
       {hasSignedUp === 2 &&
         <>
           <p>You've signed up for Journal More, please check your email in order to confirm your sign up and to log in.</p>
-          <button onClick={handleClick} className='signup-button'>Go back</button>
+          <button onClick={handleClick} className={buttonStyle.button}>Go back</button>
         </>
       }
     </div>

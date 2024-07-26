@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { supabase } from './Supabase.js'; // Import Supabase client
-import LoadingText from './loading-text.js';
-import './App.css';
-import QuestionAndAnswer from './questionAndAnswer.js';
-import { backendApiUrl, portionOfTimesToFetchFromBackend }  from './backendApi.js';
+import { supabase } from '../../../services/Supabase.js'; // Import Supabase client
+import LoadingText from '../../../components/loading-text.js';
+import '../../../assets/styles/App.css';
+import questionStyle from '../../../assets/styles/questionAnswer.module.css';
+import containerStyle from '../../../assets/styles/container.module.css';
+import entryStyle from '../../../assets/styles/entry.module.css';
+import buttonStyle from '../../../assets/styles/button.module.css';
+import QuestionAndAnswer from '../../../components/questionAndAnswer.js';
+import { backendApiUrl, portionOfTimesToFetchFromBackend }  from '../../../services/backendApi.js';
 
 function Journal() {
   const [stage, setStage] = useState(0)
@@ -163,7 +167,7 @@ function Journal() {
   }, [stage])
 
   return (
-    <div className="container">
+    <div className={containerStyle.container}>
       {/* First Question */}
       {stage === 0 &&
         <QuestionAndAnswer stage={0} question="How are you feeling today?" answers={['Great', 'Alright', 'Poor']} handleResponse={handleResponse}/>
@@ -176,23 +180,23 @@ function Journal() {
       }
       {/* loading screen to indicate we're either fetching or generating the prompt*/}
       {stage === 3 &&
-        <div className='question'>
+        <div className={questionStyle.question}>
           <LoadingText/>
         </div>
       }
       {stage === 4 && 
-        <div className='question'>
-          <div className="prompt">
+        <div className={questionStyle.question}>
+          <div style={{fontSize: "1.2em", marginBottom: "20px"}}>
             <p>{prompt}</p>
           </div>
           <div
             id="journal-entry"
-            className="entry"
+            className={entryStyle.entry}
             contentEditable="true"
             onInput={handleInput}
             placeholder="Write your thoughts here..."
           ></div>
-          <button onClick={handleSave}>Save Entry</button>
+          <button className={buttonStyle.button} onClick={handleSave}>Save Entry</button>
         </div>
       }
     </div>
