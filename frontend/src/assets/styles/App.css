@@ -13,10 +13,6 @@ body {
   color: white;
 }
 
-.app {
-  text-align: center;
-}
-
 .tab-bar {
   display: flex;
   justify-content: center;

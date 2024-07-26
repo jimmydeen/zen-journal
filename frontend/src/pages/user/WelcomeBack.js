@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../services/Supabase";
+import { supabase } from "../../services/Supabase";
 export function WelcomeBack() {
   // state how many days they've been journalling consecutively (streak)
   const [text, setText] = useState(['welcome back'])

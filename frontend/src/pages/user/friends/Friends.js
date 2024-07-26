@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../assets/styles/App.css';
+import '../../../assets/styles/App.css';
 
 function Friends() {
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../services/Supabase";
-import useIsLoggedInStatus from "../hooks/useLoggedInStatus";
+import { supabase } from "../../services/Supabase";
+import useIsLoggedInStatus from "../../hooks/useLoggedInStatus";
 
 function Login() {
   const isLoggedIn = useIsLoggedInStatus()

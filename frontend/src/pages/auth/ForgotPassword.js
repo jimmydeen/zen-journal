@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../services/Supabase";
+import { supabase } from "../../services/Supabase";
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
