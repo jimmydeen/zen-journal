@@ -4,6 +4,7 @@ import LoadingText from '../../../components/loading-text.js';
 import '../../../assets/styles/App.css';
 import questionStyle from '../../../assets/styles/questionAnwer.module.css';
 import containerStyle from '../../../assets/styles/container.module.css';
+import entryStyle from '../../../assets/styles/entry.module.css';
 import QuestionAndAnswer from '../../../components/questionAndAnswer.js';
 import { backendApiUrl, portionOfTimesToFetchFromBackend }  from '../../../services/backendApi.js';
 
@@ -189,7 +190,7 @@ function Journal() {
           </div>
           <div
             id="journal-entry"
-            className="entry"
+            className={entryStyle.entry}
             contentEditable="true"
             onInput={handleInput}
             placeholder="Write your thoughts here..."
