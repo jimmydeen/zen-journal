@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../../../services/Supabase.js'; // Import Supabase client
 import LoadingText from '../../../components/loading-text.js';
 import '../../../assets/styles/App.css';
-import questionStyle from '../../../assets/styles/questionAnwer.module.css';
+import questionStyle from '../../../assets/styles/questionAnswer.module.css';
 import containerStyle from '../../../assets/styles/container.module.css';
 import entryStyle from '../../../assets/styles/entry.module.css';
 import QuestionAndAnswer from '../../../components/questionAndAnswer.js';
