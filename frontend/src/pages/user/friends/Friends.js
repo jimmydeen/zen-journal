@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import '../../../assets/styles/App.css';
 import buttonStyle from '../../../assets/styles/button.module.css';
 import containerStyle from '../../../assets/styles/container.module.css';
+import friendStyle from '../../../assets/styles/friend.module.css';
 
 function Friends() {
   useEffect(() => {
@@ -32,12 +33,12 @@ function Friends() {
   return (
     <div className={containerStyle.container}>
       <h2>Friends Leaderboard</h2>
-      <div className="leaderboard">
+      <div className={friendStyle.leaderboard}>
         {friends.map(friend => (
-          <div key={friend.id} className="friend-row">
-            <div className="friend-avatar">{friend.name.charAt(0)}</div>
-            <div className="friend-name">{friend.name}</div>
-            <div className="friend-streak">🔥{friend.streak} days</div>
+          <div key={friend.id} className={friendStyle['friend-row']}>
+            <div className={friendStyle['friend-avatar']}>{friend.name.charAt(0)}</div>
+            <div className={friendStyle['friend-name']}>{friend.name}</div>
+            <div className={friendStyle['friend-streak']}>🔥{friend.streak} days</div>
             {/* depending on whether the friend has completed their journal for today display either send reminder or congratulate */}
             <button className={buttonStyle.button} onClick={() => sendReminder(friend.name)}>Send Reminder</button>
           </div>

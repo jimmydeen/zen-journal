@@ -1,0 +1,34 @@
+.leaderboard {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.friend-row {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #2C3E50;
+  border-radius: 5px;
+}
+
+.friend-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #1ABC9C;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  margin-right: 10px;
+}
+
+.friend-name {
+  flex-grow: 1;
+}
+
+.friend-streak {
+  margin-right: 20px;
+  min-width: 10ch;
+}
