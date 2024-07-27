@@ -50,7 +50,7 @@ function Journal() {
           updates row corresponding to the prompt
         */
         let newStreak
-        let {data, error} = await supabase.rpc('update_user_and_prompt', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
+        let {data, error} = await supabase.rpc('update_user_and_prompt_entry', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
         if (error) {console.error(error); throw error;}
         else {
           newStreak = data.new_streak_value
