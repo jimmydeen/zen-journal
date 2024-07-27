@@ -78,7 +78,7 @@ export function WelcomeBack() {
       const timer = setTimeout(() => {
         setTextIndex(prev => (prev + 1) % text.length)
         setIsTyping(true)
-      }, 2500)
+      }, text[textIndex].length * 50 + 2500)
       return () => {
         clearTimeout(timer)
       }
@@ -86,9 +86,12 @@ export function WelcomeBack() {
     } else {
       const timer = setTimeout(() => {
         setIsTyping(false)
-      }, 2500)
+      }, text[textIndex].length * 50 + 2500)
+      return () => {
+        clearTimeout(timer)
+      }
     }
-  }, [isTyping, text])
+  }, [isTyping, text, textIndex])
 
   return (
     <div className={style['welcome-back-page']}>
