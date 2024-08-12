@@ -41,18 +41,3 @@
 .fade-in {
   opacity: 1;
 }
-
-.auth-button {
-  padding: 10px 20px;
-  font-size: 1em;
-  color: white;
-  background-color: #1ABC9C;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.auth-button:hover {
-  background-color: #16A085;
-}

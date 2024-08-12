@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+# Zen Journal Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to run local development server (both frontend and backend)
+1. In another directory `git clone git@github.com:edward-20/zen-journal-supabase.git`. 
+2. Follow the instructions on that repo's `README.md` to run containers locally that will provide supabase services.
+3. In this repo, construct a `.env`, `.env.development` and provide each with:
+* `REACT_APP_SUPABASE_URL` according to the result of `supabase start` in the supabase repo
+* `REACT_APP_SUPABASE_KEY` according to the result of `supabase start` in the supabase repo
+* `REACT_APP_BACKEND_API = https://journal-chat-backend-u7wru5pkua-ts.a.run.app/prompt`, a public api made to provide prompts based on url query parameters. For example: `https://journal-chat-backend-u7wru5pkua-ts.a.run.app/prompt?isStressed=yes&energy=high&overall=average`,
+* `REACT_APP_NUM_TIMES_FETCH_FROM_BACKEND_OUT_OF_TEN = 6` to control the number of times in which a user will generate a prompt from the public backend api as opposed to reusing one from our database
 
-## Available Scripts
+## CORS Errors
+You may get CORS errors when your React tries to AJAX to your local supabase service.
+If you use chrome, [chrome doesn't allow cors requests to localhost](https://stackoverflow.com/questions/10883211/why-does-my-http-localhost-cors-origin-not-work)
 
-In the project directory, you can run:
+There is an issue concerning [CORS requests to the Auth service of a local supabase](https://github.com/supabase/supabase/issues/28008).
 
-### `npm start`
+## How to deploy (both frontend and backend)
+The process of deploying will follow steps 1 and 2 from above but you'll need to `supabase link` - more about linking [supabase link](https://supabase.com/docs/reference/cli/supabase-link) - your 
+supabase repo to a supabase project and `supabase db push` - more about pushing [supabase push](https://supabase.com/docs/reference/cli/supabase-db-push) - to that supabase project.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Importantly for the frontend you'll need to provide the environment variables
+for `.env.prod` that use the deployed supabase values. You can find these on
+your dashboard. Then follow the instructions for CRA deployment [here](https://create-react-app.dev/docs/deployment/).

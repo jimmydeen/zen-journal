@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
+import './assets/styles/App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
-import Journal from './Journal';
-import Friends from './Friends';
-import Profile from './Profile';
-import Login from './Login';
-import SignUp from './SignUp';
-import ForgotPassword from './ForgotPassword';
-import LoadingScreen from './LoadingScreen';
-import Navbar from './Navbar';
+import UserPage from './pages/user/UserPage';
+import WelcomeBack from './pages/user/WelcomeBack';
+import Journal from './pages/user/journal/Journal';
+import Friends from './pages/user/friends/Friends';
+import Profile from './pages/user/profile/Profile';
+import Login from './pages/auth/Login';
+import SignUp from './pages/auth/SignUp';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import LoadingScreen from './pages/LoadingScreen';
 
 function App() {
-  const [ac, setAc] = useState({})
 
   return (
-    <AuthContext.Provider value={{ac, setAc}}>
-      <BrowserRouter>
-        {ac?.isLoggedIn && <Navbar/>}
-        <Routes>
-          <Route exact path="" element={<LoadingScreen />} />
-          <Route exact path="/journal" element={<Journal />} />
-          <Route path="/friends" element={<Friends />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/signup" element={<SignUp/>} />
-          <Route path="/forgot-password" element={<ForgotPassword/>} />
-        </Routes>
-      </BrowserRouter>
-    </AuthContext.Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="" element={<LoadingScreen />} />
+        <Route path="/user" element={<UserPage/>}>
+          <Route index element={<WelcomeBack/>}/>
+          <Route path="journal" element={<Journal/>}/>
+          <Route path="friends" element={<Friends />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route exact path="/journal" element={<Journal />} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<SignUp/>} />
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
