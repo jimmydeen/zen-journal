@@ -58,7 +58,7 @@ export function WelcomeBack() {
           setText(["welcome back", "you can start getting into the habit of journalling today", "just take it one day at a time"])
         // if they have a streak they can uphold
         } else {
-          setText(["welcome back", "make an entry today to extend your streak", `you've journalled for ${streak} days continuously`])
+          setText(["welcome back", "make an entry today to extend your streak", `you've journalled for ${streak} day`.concat((streak === 1 ? '' : 's') + ' continuously')])
         }
       }
       console.log('here')
