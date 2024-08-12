@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar'
 import { Outlet } from 'react-router-dom'
 import { supabase } from '../../services/Supabase'
+import Eclipse from '../../assets/images/Eclipse.gif'
 
 export function UserPage() {
+  const [isInitialising, setIsInitialising] = useState(true)
   useEffect(() => {
     /* 
       get the user's last entry made
@@ -32,30 +34,34 @@ export function UserPage() {
           if (!ignore) {
             // convert the last entry made to their current timezone
             if (data.length === 1) {
-              const lastEntryMadeDate = new Date(data[0].last_entry_made)
-              const now = new Date()
-              if (lastEntryMadeDate.getFullYear() === now.getFullYear() && lastEntryMadeDate.getMonth() === now.getMonth()) {
-                const differenceInDate = now.getDate() - lastEntryMadeDate.getDate()
-                if (differenceInDate > 1) {
-                  // the date in which they last made an entry was more than one day ago
-                  // reset the streak and set daily_entry_made to false
-                  const { data, error } = await supabase
-                    .from('users')
-                    .update({streak: 0, daily_entry_made: false})
-                    .eq('id', id)
-                  console.log("Successfully reset the streak to 0")
-                  if (error) throw new Error("Unable to reset the streak and daily_entry_made (the user has been inactive for at least one day).")
-                } else if (differenceInDate === 1) {
-                  const { data, error } = await supabase
-                    .from('users')
-                    .update({daily_entry_made: false})
-                    .eq('id', id)
-                  console.log("Successfully reset the daily_entry_made to false")
-                  if (error) throw new Error("Unable to reset daily_entry_made (the user has logged in the day after their last login).")
-                } else {
-                  console.log("Logging in the same day that they made their last entry.")
-                }
+              const intermediateLastEntryMade = new Date(data[0].last_entry_made)
+              const lastEntryMade = new Date(intermediateLastEntryMade.getFullYear(), intermediateLastEntryMade.getMonth(), intermediateLastEntryMade.getDate())
+              const intermediateNow = new Date()
+              const now = new Date(intermediateNow.getFullYear(), intermediateNow.getMonth(), intermediateNow.getDate())
+              const diffTime = Math.abs(now - lastEntryMade)
+              const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+              console.log(diffDays)
+
+              if (diffDays > 1) {
+                // the date in which they last made an entry was more than one day ago
+                // reset the streak and set daily_entry_made to false
+                const { data, error } = await supabase
+                  .from('users')
+                  .update({streak: 0, daily_entry_made: false})
+                  .eq('id', id)
+                console.log("Successfully reset the streak to 0 and the daily entry made to false")
+                if (error) throw new Error("Unable to reset the streak and daily_entry_made (the user has been inactive for at least one day).")
+              } else if (diffDays === 1) {
+                const { data, error } = await supabase
+                  .from('users')
+                  .update({daily_entry_made: false})
+                  .eq('id', id)
+                console.log("Successfully reset the daily_entry_made to false")
+                if (error) throw new Error("Unable to reset daily_entry_made (the user has logged in the day after their last login).")
+              } else {
+                console.log("Logging in the same day that they made their last entry.")
               }
+              setIsInitialising(false)
             } else {
               throw new Error("More than one user to the same user id.")
             }
@@ -75,8 +81,7 @@ export function UserPage() {
 
   return (
     <>
-      <Navbar/>
-      <Outlet/>
+      {isInitialising ? <img src={Eclipse} alt="loading-icon"/> : <><Navbar/><Outlet/></>}
     </>
   )
 }
