@@ -6,7 +6,7 @@ function QuestionAndAnswerComponent({stage, question, answers, handleResponse}) 
   return (
     <div className={styles.question}>
       <h1>{question}</h1>
-      <div className={styles.answer}>
+      <div className={styles.answers}>
         {answers.map(answer =>  // needs key
           <button key={answer} className={buttonStyle.button} onClick={handleResponse(answer, stage)}>{answer}</button>
         )}
