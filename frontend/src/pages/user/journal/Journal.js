@@ -53,7 +53,7 @@ function Journal() {
         let {data, error} = await supabase.rpc('update_user_and_prompt_entry', { user_id: user.id, word_count: wordCount, prompt_id_argument: promptId})
         if (error) {console.error(error); throw error;}
         else {
-          newStreak = data.new_streak_value
+          newStreak = data
         }
 
         setEntry('');
@@ -68,6 +68,7 @@ function Journal() {
           }
         }
         setStage(0)
+        setDailyEntryMade(true)
       } catch (error) {
         console.error('Error saving entry:', error.message);
         alert('Error saving entry. Please try again.');
