@@ -1,4 +1,15 @@
 # Zen Journal Frontend
+A journalling web application that encourages users to foster this healthy habit in the pursuit of mindfulness.
+
+## Contributing
+### Features
+For any feature that you'd like to see, create a branch from the `develop` branch named `feature/<feature-name>`. Once completed, make a pull request to the `develop` branch. The request will be rejected if it doesn't pass unit tests.
+### Release
+Once the suite of features necessary for a release has been completed, make a release branch named `release/x.y.z` from the `develop` branch. The request wil be rejected if it doesn't pass the integration and e2e tests.
+### Production
+If a release branch is successfully cut off from `develop`, make a pull request to main, which may have other tests and will deploy the application.
+### Issues
+For any issues that are present that need to be resolved please create a branch from the commit where the issue was found called `bugfix/<issue-id>`. 
 
 ## How to run local development server (both frontend and backend)
 1. In another directory `git clone git@github.com:edward-20/zen-journal-supabase.git`. 
