@@ -4,10 +4,14 @@ A journalling web application that encourages users to foster this healthy habit
 ## Contributing
 ### Features
 For any feature that you'd like to see, create a branch from the `develop` branch named `feature/<feature-name>`. Once completed, make a pull request to the `develop` branch. The request will be rejected if it doesn't pass unit tests.
+
+Note: a feature branch is only ready to be merged into `develop` if the unit tests for that feature are also written.
 ### Release
-Once the suite of features necessary for a release has been completed, make a release branch named `release/x.y.z` from the `develop` branch. The request wil be rejected if it doesn't pass the integration and e2e tests.
+Once the suite of features necessary for a release has been completed, make a release branch named `release/x.y.z` from the `develop` branch. The request wil be rejected if it doesn't pass the integration tests.
+
+Note: a release branch is only ready to be created from `develop` if the integration tests for that release are also written.
 ### Production
-If a release branch is successfully cut off from `develop`, make a pull request to `main`, which may have other tests and will deploy the application.
+If a release branch is successfully cut off from `develop`, make a pull request to `main` from that release branch, which may have other tests and will deploy the application.
 
 Tag the new commit on `main`, this can be done manually (or through gh actions). 
 
