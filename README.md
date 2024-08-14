@@ -7,7 +7,11 @@ For any feature that you'd like to see, create a branch from the `develop` branc
 ### Release
 Once the suite of features necessary for a release has been completed, make a release branch named `release/x.y.z` from the `develop` branch. The request wil be rejected if it doesn't pass the integration and e2e tests.
 ### Production
-If a release branch is successfully cut off from `develop`, make a pull request to main, which may have other tests and will deploy the application.
+If a release branch is successfully cut off from `develop`, make a pull request to `main`, which may have other tests and will deploy the application.
+
+Tag the new commit on `main`, this can be done manually (or through gh actions). 
+
+Merging the new `main` back into `develop` must be done whether manually (or through gh actions).
 ### Issues
 For any issues that are present that need to be resolved please create a branch from the commit where the issue was found called `bugfix/<issue-id>`. 
 
