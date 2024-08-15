@@ -25,8 +25,8 @@ function LoadingScreen() {
         ))}
       </h1>
       <div className={`button-container ${showButtons ? 'fade-in' : ''}`}>
-        <Link to="/signup"><button className={buttonStyle.button}>Sign Up</button></Link>
-        <Link to="/login"><button className={buttonStyle.button}>Login</button></Link>
+        <Link to="/signup" data-testid="signup-button"><button className={buttonStyle.button}>Sign Up</button></Link>
+        <Link to="/login" data-testid="login-button"><button className={buttonStyle.button}>Login</button></Link>
       </div>
     </div>
   );
