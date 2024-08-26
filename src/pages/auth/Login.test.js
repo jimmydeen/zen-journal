@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'
 import Login from './Login';
-import { userInfo } from 'os';
 
 /*
  don't like the current use of router to simply nest the component we're
