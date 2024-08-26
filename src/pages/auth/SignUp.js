@@ -18,7 +18,7 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     setHasSignedUp(1)
     event.preventDefault();
-    let {data, error} = await supabase.auth.signUp({
+    let {error} = await supabase.auth.signUp({
       email,
       password
     })
