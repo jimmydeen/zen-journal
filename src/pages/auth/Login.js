@@ -15,7 +15,7 @@ function Login() {
   // later on, use ac to determine if there is already a person signed in and if so skip the sign in page
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let {data, error} = await supabase.auth.signInWithPassword({
+    let {error} = await supabase.auth.signInWithPassword({
       email,
       password
     })

@@ -7,7 +7,7 @@ import containerStyle from '../../../assets/styles/container.module.css';
 import entryStyle from '../../../assets/styles/entry.module.css';
 import buttonStyle from '../../../assets/styles/button.module.css';
 import QuestionAndAnswer from '../../../components/questionAndAnswer.js';
-import { backendApiUrl, portionOfTimesToFetchFromBackend }  from '../../../services/backendApi.js';
+import { backendApiUrl }  from '../../../services/backendApi.js';
 
 function Journal() {
   const [stage, setStage] = useState(0)
@@ -27,7 +27,7 @@ function Journal() {
         const wordCount = entry.split(/\s+/).filter((word) => word).length;
 
         // Insert entry into the Entry table
-        const { data: entryData, error: entryError } = await supabase
+        const { error: entryError } = await supabase
           .from('Entry')
           .insert([
             { person_id: user.id, prompt_id: promptId , body: entry },
@@ -92,6 +92,7 @@ function Journal() {
 
   // determine whether the person has already made their daily entry or not
   useEffect(() => {
+    let ignore = false
     async function fetchDailyEntryMadeStatus() {
       const { data: { user } } = await supabase.auth.getUser()
       const id = user.id
@@ -101,13 +102,20 @@ function Journal() {
         `
       ).eq('id', id)
 
+      if (error) {
+        console.error("Unable to determine if the user has made a daily entry. Fetching again.")
+        fetchDailyEntryMadeStatus()
+      }
       if (data.length !== 1) {
         console.error("There should only be one user for this id.")
       }
 
       const ourUser = data[0]
+      if (!ignore)
       setDailyEntryMade(ourUser.daily_entry_made)
     }
+    fetchDailyEntryMadeStatus()
+    return () => {ignore = true}
   }, [])
 
   // if we're at the loading stage fetch the prompt
