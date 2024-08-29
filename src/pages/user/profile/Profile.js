@@ -74,7 +74,7 @@ function Profile() {
 
   return (
     isLoading ? 
-    <div className={containerStyle.container}>
+    <div className={containerStyle.container} role="tabpanel">
       <div className={profileStyle['profile-header']}>
         <div className={`${profileStyle['profile-pic']} ${profileStyle.skeleton}`}/>
         <div className={profileStyle['profile-details']}>
@@ -106,7 +106,7 @@ function Profile() {
       </div>
     </div>
     :
-    <div className={containerStyle.container}>
+    <div className={containerStyle.container} role="tabpanel">
       <div className={profileStyle['profile-header']}>
         <div className={profileStyle['profile-pic']}><img src={dogImage} alt="profile-pic"/></div>
         <div className={profileStyle['profile-details']}>

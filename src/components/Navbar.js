@@ -15,7 +15,7 @@ function Navbar() {
     }
   }
   return (
-      <nav data-testid="userNavBar" className={styles['tab-bar']}>
+      <nav data-testid="userNavBar" role="tablist" className={styles['tab-bar']}>
         <button className={`${styles['logout-button']} ${buttonStyle.button}`} onClick={logOutHandler}>Log Out</button>
         <Link to="/user/journal" className={styles.tab}>Journal</Link>
         <Link to="/user/friends" className={styles.tab}>Friends</Link>
