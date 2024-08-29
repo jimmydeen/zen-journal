@@ -5,33 +5,7 @@ import supabase from '../../services/Supabase';
 
 
 describe("User Page", () => {
-  test("Has tab bar above with buttons for each tab", async () => {
-    // mock the supabase client
-    // jest.mock('../../services/Supabase', () => {
-    //   const today = new Date()
-    //   const {date, month, year } = {date: today.getDate(), month: today.getMonth(), year: today.getFullYear()}
-    //   const mockData = { last_entry_made: `${year}-${month}-${date}`}; // will make the mock data for the last_entry_made the same as today
-    //   return {
-    //     __esModule: true,
-    //     default: {
-    //       from: jest.fn(() => ({
-    //         select: jest.fn(() => ({
-    //           eq: jest.fn().mockResolvedValueOnce({ data: [mockData], error: null }).mockResolvedValueOnce({error: null}),
-    //         })),
-    //       })),
-    //       auth: {
-    //         getUser: jest.fn().mockResolvedValue({ data: {
-    //           user: { 
-    //             id: 'user123',
-    //             otherKey: "free"
-    //           } 
-    //         }}),
-    //       },
-    //     }
-    //   };
-    // })
-
-
+  beforeEach(() => {
     supabase.auth.getUser = jest.fn().mockResolvedValue({
       data: {
         user: {
@@ -39,6 +13,7 @@ describe("User Page", () => {
         }
       }
     })
+    // mock the call to get the last entry made and subsequently update the user
     const today = new Date()
     const {date, month, year } = {date: today.getDate(), month: today.getMonth(), year: today.getFullYear()}
     const mockData = { last_entry_made: `${year}-${month}-${date}`}; // will make the mock data for the last_entry_made the same as today
@@ -58,10 +33,19 @@ describe("User Page", () => {
         })
       } 
     })
+  })
+  test("Has tab bar above with buttons for each tab", async () => {
+    // mock the call to get the user
     render(<MemoryRouter><UserPage/></MemoryRouter>)
     expect(await screen.findByTestId("userNavBar")).toBeInTheDocument()
     expect(screen.getByText("Journal")).toBeInTheDocument()
     expect(screen.getByText("Friends")).toBeInTheDocument()
     expect(screen.getByText("Profile")).toBeInTheDocument()
+  })
+  test("Has logout button", async () => {
+    // mock the call to get the user
+    render(<MemoryRouter><UserPage/></MemoryRouter>)
+    expect(await screen.findByTestId("userNavBar")).toBeInTheDocument()
+    expect(screen.getByText(/logout|log out/i)).toBeInTheDocument()
   })
 })
