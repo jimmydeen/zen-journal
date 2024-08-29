@@ -45,14 +45,14 @@ export function UserPage() {
               if (diffDays > 1) {
                 // the date in which they last made an entry was more than one day ago
                 // reset the streak and set daily_entry_made to false
-                const { data, error } = await supabase
+                const { error } = await supabase
                   .from('users')
                   .update({streak: 0, daily_entry_made: false})
                   .eq('id', id)
                 console.log("Successfully reset the streak to 0 and the daily entry made to false")
                 if (error) throw new Error("Unable to reset the streak and daily_entry_made (the user has been inactive for at least one day).")
               } else if (diffDays === 1) {
-                const { data, error } = await supabase
+                const { error } = await supabase
                   .from('users')
                   .update({daily_entry_made: false})
                   .eq('id', id)
