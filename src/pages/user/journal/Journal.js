@@ -126,43 +126,44 @@ function Journal() {
       // randomly determine if we'll get a prompt from the database or from the backend api
       // if (Math.random() * 10 < portionOfTimesToFetchFromBackend) {
         // we'll fetch from the backend
-        const fetchFromBackend = async function () {
-          const params = new URLSearchParams(userState)
-          try {
-            // get the generated prompt
-            const response = await fetch(`${backendApiUrl}?${params.toString()}`, {
-              method: 'GET'
-            })
-            if (!response.ok) throw new Error(response.status)
-            const backendData = await response.json()
-            console.log(response)
-            console.log(backendData)
-            if (!ignore) {
-              setPrompt(backendData.message)
-            }
-
-            // write this new prompt to the database
-            const { data, error } = await supabase
-              .from('Prompt')
-              .insert(
-                {
-                  category_flag: 42, // needs to be computed based on user state but for now use this stub
-                  number_entries: 0, 
-                  prompt_text: backendData.message
-                }
-              )
-              .select()
-            if (error) throw new Error(error)
-            else if (!ignore) {
-              setPromptId(data[0].prompt_id)
-              setStage(4)
-            }
-          } catch(error) {
-            console.error(error)
-            alert(error)
+      const fetchFromBackend = async function () {
+        const params = new URLSearchParams(userState)
+        try {
+          // get the generated prompt
+          const response = await fetch(`${backendApiUrl}?${params.toString()}`, {
+            method: 'GET'
+          })
+          console.log("here")
+          if (!response.ok) throw new Error(response.status)
+          const backendData = await response.json()
+          console.log(response)
+          console.log(backendData)
+          if (!ignore) {
+            setPrompt(backendData.message)
           }
+
+          // write this new prompt to the database
+          const { data, error } = await supabase
+            .from('Prompt')
+            .insert(
+              {
+                category_flag: 42, // needs to be computed based on user state but for now use this stub
+                number_entries: 0, 
+                prompt_text: backendData.message
+              }
+            )
+            .select()
+          if (error) throw new Error(error)
+          else if (!ignore) {
+            setPromptId(data[0].prompt_id)
+            setStage(4)
+          }
+        } catch(error) {
+          console.error(error)
+          alert(error)
         }
-        fetchFromBackend()
+      }
+      fetchFromBackend()
       // } else {
       //   // we'll get from our database (random atm)
       //   supabase.
@@ -176,7 +177,7 @@ function Journal() {
   }, [stage])
 
   return (
-    <div className={containerStyle.container}>
+    <div className={containerStyle.container} role="tabpanel">
       {/* First Question */}
       {stage === 0 &&
         <QuestionAndAnswer stage={0} question="How are you feeling today?" answers={['Great', 'Alright', 'Poor']} handleResponse={handleResponse}/>
@@ -196,7 +197,7 @@ function Journal() {
       {stage === 4 && 
         <div className={questionStyle.question}>
           <div style={{fontSize: "1.2em", marginBottom: "20px"}}>
-            <p>{prompt}</p>
+            <p data-testid="prompt">{prompt}</p>
           </div>
           <div
             id="journal-entry"
@@ -204,6 +205,10 @@ function Journal() {
             contentEditable="true"
             onInput={handleInput}
             placeholder="Write your thoughts here..."
+            role='textbox'
+            aria-multiline="true"
+            tabIndex={0}
+            aria-label='Write your thoughts here...'
           ></div>
           <button className={buttonStyle.button} onClick={handleSave}>Save Entry</button>
         </div>

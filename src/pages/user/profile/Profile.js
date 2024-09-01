@@ -74,7 +74,7 @@ function Profile() {
 
   return (
     isLoading ? 
-    <div className={containerStyle.container}>
+    <div className={containerStyle.container} role="tabpanel">
       <div className={profileStyle['profile-header']}>
         <div className={`${profileStyle['profile-pic']} ${profileStyle.skeleton}`}/>
         <div className={profileStyle['profile-details']}>
@@ -106,7 +106,7 @@ function Profile() {
       </div>
     </div>
     :
-    <div className={containerStyle.container}>
+    <div className={containerStyle.container} role="tabpanel">
       <div className={profileStyle['profile-header']}>
         <div className={profileStyle['profile-pic']}><img src={dogImage} alt="profile-pic"/></div>
         <div className={profileStyle['profile-details']}>
@@ -120,23 +120,23 @@ function Profile() {
       <div className={profileStyle.stats}>
         <div className={profileStyle.stat}>
           <p>Words written</p>
-          <p>{wordsWritten}</p>
+          <p data-testid="wordsWritten">{wordsWritten}</p>
         </div>
         <div className={profileStyle.stat}>
           <p>Entries</p>
-          <p>{entries}</p>
+          <p data-testid="entries">{entries}</p>
         </div>
         <div className={profileStyle.stat}>
           <p>Words of Encouragements</p>
-          <p>{wordsOfEncouragement}</p>
+          <p data-testid="wordsOfEncouragement">{wordsOfEncouragement}</p>
         </div>
         <div className={profileStyle.stat}>
           <p>Active Days</p>
-          <p>{activeDays}</p>
+          <p data-testid="activeDays">{activeDays}</p>
         </div>
         <div className={profileStyle.stat}>
           <p>Member Since</p>
-          <p>{membersSince}</p>
+          <p data-testid="memberSince">{membersSince}</p>
         </div>
 
       </div>
