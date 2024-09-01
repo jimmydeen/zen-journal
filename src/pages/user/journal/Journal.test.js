@@ -96,6 +96,6 @@ describe("Journal Tab", () => {
     const saveButton = await screen.findByText(/save/i)
     expect(saveButton).toBeInTheDocument()
 
-  }, 60000)
+  }, 10000)
   // test("after answering the last question there should be a prompt of some kind")
 })
