@@ -31,3 +31,7 @@
   .signup-form input::placeholder {
     color: #BDC3C7; /* Lighter grey for placeholder text */
   }
+
+.password-security-requirement {
+  font-size: 0.8rem;
+}

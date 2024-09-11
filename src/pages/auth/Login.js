@@ -7,6 +7,7 @@ import buttonStyle from '../../assets/styles/button.module.css';
 function Login() {
   const isLoggedIn = useIsLoggedInStatus()
   const [email, setEmail] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(null)
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ function Login() {
   // later on, use ac to determine if there is already a person signed in and if so skip the sign in page
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let {data, error} = await supabase.auth.signInWithPassword({
+    let {error} = await supabase.auth.signInWithPassword({
       email,
       password
     })
@@ -24,6 +25,16 @@ function Login() {
       navigate('/user/')
     }
   };
+
+  const onChangeEmail = (e) => {
+    e.preventDefault()
+    setEmail(e.target.value)
+    if (!/\S+@\S+\.\S+/.test(e.target.value)) {
+      setIsValidEmail(false)
+    } else {
+      setIsValidEmail(true)
+    }
+  }
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -40,9 +51,10 @@ function Login() {
           type="email"
           id="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={onChangeEmail}
           required
         />
+        {isValidEmail === false && <span style={{color: "red"}} role="alert">You've input an invalid email</span>}
 
         <label htmlFor="password">Password:</label>
         <input

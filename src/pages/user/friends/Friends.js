@@ -31,7 +31,7 @@ function Friends() {
   };
 
   return (
-    <div className={containerStyle.container}>
+    <div className={containerStyle.container} role="tabpanel">
       <h2>Friends Leaderboard</h2>
       <div className={friendStyle.leaderboard}>
         {friends.map(friend => (
