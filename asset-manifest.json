@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/zen-journal/static/css/main.92d3dc4c.css",
-    "main.js": "/zen-journal/static/js/main.5f49908a.js",
+    "main.js": "/zen-journal/static/js/main.1fc692a7.js",
     "static/js/952.ebe72fbc.chunk.js": "/zen-journal/static/js/952.ebe72fbc.chunk.js",
     "static/js/453.c964e750.chunk.js": "/zen-journal/static/js/453.c964e750.chunk.js",
     "static/media/Eclipse.gif": "/zen-journal/static/media/Eclipse.7b77cf9a34f276f91a73.gif",
     "index.html": "/zen-journal/index.html",
     "main.92d3dc4c.css.map": "/zen-journal/static/css/main.92d3dc4c.css.map",
-    "main.5f49908a.js.map": "/zen-journal/static/js/main.5f49908a.js.map",
+    "main.1fc692a7.js.map": "/zen-journal/static/js/main.1fc692a7.js.map",
     "952.ebe72fbc.chunk.js.map": "/zen-journal/static/js/952.ebe72fbc.chunk.js.map",
     "453.c964e750.chunk.js.map": "/zen-journal/static/js/453.c964e750.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.92d3dc4c.css",
-    "static/js/main.5f49908a.js"
+    "static/js/main.1fc692a7.js"
   ]
 }
