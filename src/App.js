@@ -14,7 +14,7 @@ import LoadingScreen from './pages/LoadingScreen';
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={`/${process.env.REACT_APP_PUBLIC_URL}`}>
       <Routes>
         <Route exact path="" element={<LoadingScreen />} />
         <Route path="/user" element={<UserPage/>}>

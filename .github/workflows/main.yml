@@ -31,9 +31,10 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./build
-    environment: development
+    environment: production
     env:
       REACT_APP_SUPABASE_URL: ${{ secrets.REACT_APP_SUPABASE_URL }}
       REACT_APP_SUPABASE_KEY: ${{ secrets.REACT_APP_SUPABASE_KEY }}
       REACT_APP_BACKEND_API: ${{ secrets.REACT_APP_BACKEND_API }}
       REACT_APP_NUM_TIMES_FETCH_FROM_BACKEND_OUT_OF_TEN: ${{ secrets.REACT_APP_NUM_TIMES_FETCH_FROM_BACKEND_OUT_OF_TEN }}
+      REACT_APP_PUBLIC_URL: ${{ secrets.REACT_APP_PUBLIC_URL }}
